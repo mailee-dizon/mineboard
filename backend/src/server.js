@@ -4,6 +4,7 @@ import { sql } from "./config/db.js"
 import userRoutes from "../routes/userRoutes.js"
 import postRoutes from "../routes/postRoutes.js"
 import job from "./config/cron.js"
+import cors from "cors"
 
 
 const app = express()
@@ -14,7 +15,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors());
 
 job.start()
 const PORT = ENV.PORT

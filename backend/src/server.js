@@ -2,6 +2,7 @@ import express from "express"
 import { ENV } from "./config/env.js"
 import { sql } from "./config/db.js"
 import userRoutes from "../routes/userRoutes.js"
+import postRoutes from "../routes/postRoutes.js"
 
 
 const app = express()
@@ -30,7 +31,7 @@ async function initDB() {
             likes INT,
             title VARCHAR NOT NULL,
             descript VARCHAR,
-            images VARCHAR NOT NULL,
+            images VARCHAR[] NOT NULL,
             categories category[],
             CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID)
         )`
@@ -71,6 +72,7 @@ app.get("/api/health", (req, res) => {
 })
 
 app.use("/api/users", userRoutes)
+app.use("/api/posts", postRoutes)
 
 initDB().then(() => {
     app.listen(PORT, () => {

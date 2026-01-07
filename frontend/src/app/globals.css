@@ -5,8 +5,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffff;
+    --foreground: #000000;
   }
 }
 
@@ -39,4 +39,11 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.font-minecraft {
+  font-family: var(--font-minecraft), monospace;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
 }

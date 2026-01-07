@@ -1,0 +1,71 @@
+/* Left Navigation Bar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding: 1rem;
+  border-right: 1px solid #e5e5e5;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 50;
+}
+
+/* Menu items */
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navItem:hover {
+  background-color: #f3f3f3;
+}
+
+/* Icon style (optional) */
+.navItem svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Text label */
+.navItem span {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.collapseToggle {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 24px;
+  right: -12px;          /* push slightly outside the navbar */
+  background: white;     /* or match navbar background */
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  z-index: 100;          /* above content */
+  transition: background 0.2s;
+}
+
+.collapseToggle svg { 
+    padding: 1;
+    width: 16px;
+    height: 16px;
+
+}
+
+.collapseToggle:hover {
+  background: #f3f3f3;
+}

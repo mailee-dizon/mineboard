@@ -1,0 +1,54 @@
+.mainBox {
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    padding: 160px 0 80px 0;
+}
+
+.header {
+    margin-bottom: 45px;
+}
+
+.subMainBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 350px;
+    width: 35%;
+    box-shadow: 6px 7px 8px 7px #ddd;
+    border-radius: 10px;
+}
+
+.inputBox {
+    width: 80%;
+    padding: 7px;
+    margin-bottom: 10px;
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+}
+
+input:focus {
+    outline: none;
+    caret-color: #757575;
+}
+
+.signUp {
+    text-align: center;
+    color: white;
+    width: 80%;
+    padding: 7px;
+    margin-bottom: 10px;
+    background-color: #58894B;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+
+}
+
+.signUp:hover {
+    background-color: #4e7943;
+}
+

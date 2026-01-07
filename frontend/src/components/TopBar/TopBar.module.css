@@ -1,0 +1,40 @@
+.topBar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80px;
+}
+
+.topBarInner{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.topBarItem {
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem;
+  padding-top: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.searchBar {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 150px;
+  flex: 1 1 auto;
+}
+
+.loginButton {
+  margin-left: auto;
+}

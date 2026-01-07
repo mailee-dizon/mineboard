@@ -1,27 +1,21 @@
 import React from "react";
-import { useAuth } from "@/context/AuthContext";
 import styles from "./LoginButton.module.css";
-import Link from "next/link";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 
 export const LoginButton = () => {
-    const {user, setUser, isLoggedIn, setIsLoggedIn} = useAuth()
-    const logIn = (e) => {
-        e.preventDefault()
-        setIsLoggedIn(true)
-        setUser({
-            name: "John Doe"
-        })
-    }
+    const { isSignedIn } = useUser()
     
-    if (isLoggedIn){
+    if (isSignedIn){
         return(
-            <button className={styles.loginButton}>Logged In</button>
+            <SignOutButton redirectUrl="/home">
+                <button className={styles.loginButton}>Sign Out</button>
+            </SignOutButton> // to be changed to pfp icon
         );
     }
     
     return (
-            <Link href="/login">
-                <button className={styles.loginButton}>Login</button>
-            </Link> 
+        <SignInButton mode="modal">
+            <button className={styles.loginButton}>Login</button>
+        </SignInButton>
     )
 }

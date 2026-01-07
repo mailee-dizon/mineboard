@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.36.5",
+    "@uploadthing/react": "^7.3.3",
     "lucide-react": "^0.562.0",
     "next": "^16.1.1",
     "react": "~19.2.3",
-    "react-dom": "~19.2.3"
+    "react-dom": "~19.2.3",
+    "react-select": "^5.10.2",
+    "uploadthing": "^7.7.4"
   },
   "devDependencies": {
     "babel-plugin-react-compiler": "1.0.0"

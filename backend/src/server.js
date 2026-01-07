@@ -9,6 +9,13 @@ import job from "./config/cron.js"
 const app = express()
 app.use(express.json())
 
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+
+app.options("*", cors());
+
 job.start()
 const PORT = ENV.PORT
 

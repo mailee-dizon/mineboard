@@ -3,10 +3,13 @@ import { ENV } from "./config/env.js"
 import { sql } from "./config/db.js"
 import userRoutes from "../routes/userRoutes.js"
 import postRoutes from "../routes/postRoutes.js"
+import job from "./config/cron.js"
 
 
 const app = express()
 app.use(express.json())
+
+job.start()
 const PORT = ENV.PORT
 
 async function initDB() {

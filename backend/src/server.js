@@ -1,13 +1,70 @@
 import express from "express"
 import { ENV } from "./config/env.js"
+import { sql } from "./config/db.js"
+import userRoutes from "../routes/userRoutes.js"
+
 
 const app = express()
+app.use(express.json())
 const PORT = ENV.PORT
+
+async function initDB() {
+    try {
+        await sql`CREATE TABLE IF NOT EXISTS users(
+            userID SERIAL NOT NULL PRIMARY KEY,
+            username VARCHAR UNIQUE NOT NULL,
+            firstName TEXT,
+            lastName TEXT,
+            createdAt DATE NOT NULL DEFAULT CURRENT_DATE,
+            bio TEXT,
+            pfp TEXT
+        )`
+
+        await sql`CREATE TABLE IF NOT EXISTS post(
+            postID SERIAL PRIMARY KEY,
+            userID INT NOT NULL,
+            createdAt DATE NOT NULL DEFAULT CURRENT_DATE,
+            likes INT,
+            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID)
+        )`
+
+        await sql`CREATE TABLE IF NOT EXISTS likes(
+            postID INT NOT NULL,
+            userID INT NOT NULL,
+            likeDate DATE NOT NULL DEFAULT CURRENT_DATE,
+            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID),
+            CONSTRAINT fk_post FOREIGN KEY(postID) REFERENCES post (postID)
+        )`
+
+        await sql`CREATE TABLE IF NOT EXISTS board(
+            boardID SERIAL PRIMARY KEY,
+            boardName VARCHAR NOT NULL,
+            boardImage TEXT,
+            userID INT NOT NULL,
+            postID INT NOT NULL,
+            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID),
+            CONSTRAINT fk_post FOREIGN KEY(postID) REFERENCES post (postID)
+        )`
+
+        await sql`CREATE TABLE IF NOT EXISTS followers(
+            userID INT NOT NULL,
+            followedAt DATE NOT NULL DEFAULT CURRENT_DATE,
+            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID)
+        )`
+    } catch (error) {
+        console.error("Error creating table: ", error);
+        process.exit(1);
+    }
+}
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({success: true})
 })
 
-app.listen(PORT, () => {
-    console.log("SERVER RUNNING ON PORT: ", PORT)
+app.use("/api/users", userRoutes)
+
+initDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("SERVER RUNNING ON PORT: ", PORT)
+    })
 })

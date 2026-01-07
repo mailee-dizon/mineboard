@@ -1,5 +1,6 @@
-import dotenv from "dotenv/config"
+import "dotenv/config";
 
 export const ENV = {
-    PORT: process.env.PORT || 8000
+    PORT: process.env.PORT || 8000,
+    DATABASE_URL: process.env.DATABASE_URL
 }

@@ -10,7 +10,7 @@ const PORT = ENV.PORT
 
 async function initDB() {
     try {
-        await sql`CREATE TYPE category AS ENUM ('interior, exterior, house, town, castle, decoration')`
+        //await sql`IF NOT EXISTS (CREATE TYPE  category AS ENUM ('interior, exterior, house, town, castle, decoration'))`
 
         await sql`CREATE TABLE IF NOT EXISTS users(
             id SERIAL PRIMARY KEY,

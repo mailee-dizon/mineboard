@@ -8,7 +8,6 @@ export const UploadImages = () => {
     const uploadImage = () => {
 
     }
-
     
   return (
     <div>UploadImages</div>

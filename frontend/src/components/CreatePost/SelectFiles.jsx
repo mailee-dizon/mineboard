@@ -3,10 +3,6 @@ import React, { useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import styles from "./SelectFiles.module.css";
 
-// uploadthing to be replaced with firebase storage
-import { UploadDropzone } from '@uploadthing/react';
-import "@uploadthing/react/styles.css";
-
 /*
     Need to style more; when we add pic i want it to be displayed/replace uploadImagesBox
     should have button like + to add more pics, display these like insta where you have arrows < > to go back and forth 

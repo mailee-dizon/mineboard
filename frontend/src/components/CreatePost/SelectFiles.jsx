@@ -12,7 +12,6 @@ import styles from "./SelectFiles.module.css";
     if no files chosen (images.length == 0) -> need an error/alert saying "please select at least one file"
     */
 
-
 export const SelectFiles = ({images=[], setImages}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 

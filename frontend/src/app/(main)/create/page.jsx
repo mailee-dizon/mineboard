@@ -1,10 +1,12 @@
 // src/app/pages/CreatePage.jsx
 import React from "react";
+import { CreatePost } from "@/components/CreatePost/CreatePost";
 
 export default function CreatePage() {
   return (
-    <main>
-      <h1>Create</h1>
-    </main>
+      <div>
+        <h1>Create Post</h1>
+        <CreatePost/>
+      </div>
   );
 }

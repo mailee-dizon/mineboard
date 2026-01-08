@@ -1,0 +1,47 @@
+.uploadImages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.uploadImagesBox {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    background-color: white;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 10px;
+    height: 40%;
+    width: 50%;
+    gap: 10;
+    margin: 10px;
+    
+}
+
+.uploadImagesInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.uploadImagesText {
+    text-align: center;
+}
+
+
+.previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.chooseFiles {
+    color: #000;
+    font-family: inherit;
+
+}

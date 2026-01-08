@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react'
 import styles from "./CreatePost.module.css";
-import { UploadImages } from './UploadImages';
+import { SelectFiles } from './SelectFiles';
 import Select from 'react-select';
 import { useUser } from '@clerk/nextjs';
 import { API_URL } from '../../../constants/api';
@@ -66,7 +66,7 @@ export const CreatePost = () => {
 
     return (
     <div className={styles.mainCreateBox} >
-        <UploadImages images={images} setImages={setImages}/>
+        <SelectFiles images={images} setImages={setImages}/>
         <div className={styles.subCreateBox}>
             <input 
                 className={styles.inputBox}

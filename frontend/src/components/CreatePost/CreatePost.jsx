@@ -74,11 +74,12 @@ export const CreatePost = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
-            <input 
-                className={styles.inputBox}
-                placeholder="Description"
-                value={descript}
-                onChange={(e) => setDescript(e.target.value)}
+            <textarea 
+                    className={`${styles.inputBox} ${styles.descriptionBox}`}
+                    placeholder="Description"
+                    rows={6}
+                    value={descript}
+                    onChange={(e) => setDescript(e.target.value)}
             />
             <Select // TO DO: finish implementing categories
                 isMulti='true'

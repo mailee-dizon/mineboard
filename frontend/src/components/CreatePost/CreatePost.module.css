@@ -32,7 +32,7 @@
 
 }
 
-.inputBox input:focus {
+.inputBox input:focus, .descriptionBox:focus {
     outline: none;
     caret-color: #757575;
     color: #757575;

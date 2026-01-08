@@ -14,7 +14,7 @@ export const UserSync = () => {
                 try {
                     const payload = {
                         userId: user.id,
-                        username: user.username || user.firstName || "Anonymous",
+                        username: user.username,
                         firstName: user.firstName,
                         lastName: user.lastName,
                         pfp: user.imageUrl

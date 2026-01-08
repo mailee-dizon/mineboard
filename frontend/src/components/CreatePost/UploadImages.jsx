@@ -80,8 +80,8 @@ export const UploadImages = ({images, setImages}) => {
                         setImages(prev => [...prev, ...newImages]);
                     }}
                     appearance={{
+                        container: {border: 'none'},
                         button: { width: '100%', height: '100%', background: 'black', color: 'white', font: 'inherit'},
-                        allowedContent: { display: 'none' }
                     }}
                 />
             </div>

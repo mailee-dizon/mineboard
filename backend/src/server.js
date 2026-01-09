@@ -3,6 +3,9 @@ import { ENV } from "./config/env.js"
 import { sql } from "./config/db.js"
 import userRoutes from "../routes/userRoutes.js"
 import postRoutes from "../routes/postRoutes.js"
+import likeRoutes from "../routes/likesRoutes.js"
+import followersRoutes from "../routes/followersRoutes.js"
+import boardsRoutes from "../routes/boardsRoutes.js"
 import job from "./config/cron.js"
 import cors from "cors"
 
@@ -59,15 +62,15 @@ async function initDB() {
             boardName VARCHAR NOT NULL,
             boardImage TEXT,
             userID VARCHAR NOT NULL,
-            postID INT NOT NULL,
-            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID),
-            CONSTRAINT fk_post FOREIGN KEY(postID) REFERENCES post (postID)
+            postID INT[] NOT NULL,
+            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID)
         )`
 
         await sql`CREATE TABLE IF NOT EXISTS followers(
-            userID VARCHAR NOT NULL,
+            follow_userID VARCHAR NOT NULL,
+            follower_userID VARCHAR NOT NULL,
             followedAt DATE NOT NULL DEFAULT CURRENT_DATE,
-            CONSTRAINT fk_user FOREIGN KEY(userID) REFERENCES users (userID)
+            CONSTRAINT fk_user FOREIGN KEY(follow_userID) REFERENCES users (userID)
         )`
 
         
@@ -83,6 +86,9 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/users", userRoutes)
 app.use("/api/posts", postRoutes)
+app.use("/api/likes", likeRoutes)
+app.use("/api/follows", followersRoutes)
+app.use("/api/boards", boardsRoutes)
 
 initDB().then(() => {
     app.listen(PORT, () => {

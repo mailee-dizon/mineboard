@@ -41,7 +41,6 @@ export const CreatePost = () => {
             // stores local images (FileObjects) -> firebase
             // converted to firebaseURLs that can be accessed globally now
             const firebaseUrls = await uploadImages(images);
-
             const res = await fetch(`${API_URL}/posts`, {
                 method: "POST", 
                 headers: { "Content-Type": "application/json"},

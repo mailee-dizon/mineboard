@@ -13,6 +13,7 @@ export const uploadImages = async (images) => {
         const imageRef = ref(storage, `post/${batchId}/${fileName}`)
         const snapshot = await uploadBytes(imageRef, item.file);
         const downloadURL = await getDownloadURL(snapshot.ref);
+        return downloadURL;
     });
     return await Promise.all(uploadPromises);
 };

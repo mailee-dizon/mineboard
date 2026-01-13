@@ -43,7 +43,7 @@
     justify-items: center;
 }
 
-.postSubmit {
+.postSubmitButton {
     display: flex;
     font-family: inherit;
     background-color: black;

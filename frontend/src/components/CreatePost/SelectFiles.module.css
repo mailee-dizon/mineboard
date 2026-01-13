@@ -1,11 +1,11 @@
-.uploadImages {
+.selectFiles {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.uploadImagesBox {
+.selectFilesBox {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -23,7 +23,7 @@
     padding: 10px;
 }
 
-.multipleUploads {
+.multipleSelections {
     display: flex;
     flex-direction: row;
     align-items: center;

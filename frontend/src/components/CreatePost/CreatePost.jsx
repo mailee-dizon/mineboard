@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from 'react'
-import styles from "./CreatePost.module.css";
-import { UploadImages } from './UploadImages';
 import Select from 'react-select';
-import { useUser } from '@clerk/nextjs';
+import styles from "./CreatePost.module.css";
 import { API_URL } from '../../../constants/api';
+import { SelectFiles } from './SelectFiles';
+import { uploadImages } from './UploadImages';
+import { useUser } from '@clerk/nextjs';
 
 // temporary 'categories' for frontend purposes
 const options = [
@@ -15,6 +16,11 @@ const options = [
     {value: "furniture", label: "Furniture"},
     ];
 
+/**
+    TO DO:
+        handle errors (no title, no images selected)
+        these 2 NEED a value, prompt little error msg
+ */
 export const CreatePost = () => {
     const { isSignedIn, user } = useUser();
     const [title, setTitle] = useState("");
@@ -24,12 +30,17 @@ export const CreatePost = () => {
     // TO DO: implement categories
     const [selectedCategories, setSelectedCategories] = useState([]);
 
+    const checkErrors = () =>{
+        // if no errors, call handleSubmit; else prompt. 
+    }
     const handleSumbit = async () => {
-        const imageUrls = images.map(img => img.url);
         // TO DO: implement categories
         // const categoryValues = selectedCategories.map(c => c.value)
-
         try {
+            
+            // stores local images (FileObjects) -> firebase
+            // converted to firebaseURLs that can be accessed globally now
+            const firebaseUrls = await uploadImages(images);
             const res = await fetch(`${API_URL}/posts`, {
                 method: "POST", 
                 headers: { "Content-Type": "application/json"},
@@ -37,7 +48,7 @@ export const CreatePost = () => {
                     userId: user.id,
                     title, 
                     descript,
-                    images: imageUrls,
+                    images: firebaseUrls,
                     // categories: []
                 })
             });
@@ -66,7 +77,7 @@ export const CreatePost = () => {
 
     return (
     <div className={styles.mainCreateBox} >
-        <UploadImages images={images} setImages={setImages}/>
+        <SelectFiles images={images} setImages={setImages}/>
         <div className={styles.subCreateBox}>
             <input 
                 className={styles.inputBox}
@@ -90,9 +101,7 @@ export const CreatePost = () => {
                 
             />
             <div className={styles.postSubmitBox}>
-                <button onClick={handleSumbit} className={styles.postSubmit}>
-                    Post
-                </button>
+                <button onClick={handleSumbit} className={styles.postSubmitButton}>Post</button>
             </div>
         </div>
     </div>

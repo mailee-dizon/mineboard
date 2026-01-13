@@ -5,6 +5,7 @@ import styles from "./EditProfile.module.css"
 import { minecraftFont } from '@/app/fonts';
 import { useUser } from '@clerk/nextjs';
 import { API_URL } from '../../../constants/api';
+import { uploadImages } from '../LoginContainer/UploadImages';
 
 export default function EditProfile({ initialData }) {
     const { user } = useUser()
@@ -19,29 +20,25 @@ export default function EditProfile({ initialData }) {
         if (!user || !file) return
 
         try {
-            setPfp(URL.createObjectURL(file))
 
-            const formData = new FormData()
+            const imageUrl = await uploadImages(user.id, file);
+            console.log("ImageUrl: ", imageUrl)
 
-            formData.append("pfp", file);
-
-            await fetch(`https://api.clerk.com/v1/users/${user.id}`, {
-                method: "PATCH",
-                headers: {
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLERK_FRONTEND_API_KEY}`,
-                },
-                body: formData,
-            });
-
-            await fetch(`${API_URL}/users/${user}`, {
+            const res = await fetch(`${API_URL}/users/${user.id}`, {
                 method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
-                    pfp: formData
+                    pfp: imageUrl
                 })
             })
+            setPfp(imageUrl)
+            const data = await res.json()
+            console.log("Uploaded file: ", data);
 
         } catch (error) {
-            
+            console.error("Error uploading pfp: ", error);
         }
 
     }

@@ -4,7 +4,6 @@ import styles from "./LoginButton.module.css";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { API_URL } from "../../../constants/api";
 
 export const LoginButton = ({ initialData }) => {
     const { isSignedIn, user } = useUser();

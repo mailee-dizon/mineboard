@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+}
+
+.pfp {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.details {
+    margin-left: 10px;
+}

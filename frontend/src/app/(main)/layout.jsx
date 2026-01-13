@@ -1,27 +1,30 @@
 // src/app/(main)/layout.jsx
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import NavBar from "@/components/NavBar/NavBar"; 
 import TopBar from "@/components/TopBar/TopBar";
+import { UIProvider } from "@/context/UIContext";
+import MainContent from "@/components/MainContent/MainContent";
+import { currentUser } from "@clerk/nextjs/server";
+import { API_URL } from "../../../constants/api";
 
-export default function MainLayout({ children }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+export default async function MainLayout({ children }) {
+  const user = await currentUser();
+  let initData = null;
+  if ( user ) {
+    const response = await fetch(`${API_URL}/users/id/${user.id}`);
+    const data = await response.json();
+    initData = data[0];
+  }
 
   return (
     <>
-      <TopBar isCollapsed={isCollapsed}/>
-      <NavBar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <main 
-        style={{
-          marginTop: 80,
-          marginLeft: isCollapsed ? "60px" : "200px",
-          paddingTop: 10,
-          paddingLeft: isCollapsed ? 40 : 50,
-          transition: "margin-left 0.3s",
-        }}
-      >
-         {children}
-      </main>
+    <UIProvider>
+        <TopBar initialData={initData}/>
+        <NavBar />
+        <MainContent>
+          { children }
+        </MainContent>
+      </UIProvider>
     </>
   );
 }

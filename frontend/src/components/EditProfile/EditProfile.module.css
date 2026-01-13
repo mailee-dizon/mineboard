@@ -1,0 +1,50 @@
+.input {
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 300px;
+}
+
+.inputImage {
+    display: none;
+}
+
+.input::placeholder{
+    color:gray;
+    opacity: 70%;
+}
+
+.changeContainer {
+    margin-top: 20px;
+    margin-left: 10px;
+    display: grid;
+    justify-content: center;
+}
+
+.infoContainer {
+    margin-top: 30px;
+}
+
+.pfp {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.changeButton {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

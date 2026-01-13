@@ -1,33 +1,33 @@
-// src/app/components/NavBar.jsx
-"use client"; // important for interactive components in Next.js
+"use client";
 
-import React, {useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Home, Compass, SquarePlus, Bell, MessageCircleMore, ArrowRightFromLine, ArrowLeftFromLine } from "lucide-react";
+import {
+  Home,
+  Compass,
+  SquarePlus,
+  Bell,
+  MessageCircleMore,
+  ArrowRightFromLine,
+  ArrowLeftFromLine
+} from "lucide-react";
 import styles from "./NavBar.module.css";
+import { useUI } from "@/context/UIContext";
 
-export default function NavBar({ isCollapsed, setIsCollapsed}) {
+export default function NavBar() {
+  const { isCollapsed, setIsCollapsed } = useUI();
+
   return (
-
     <nav className={styles.navbar}>
+      <button
+        className={styles.collapseToggle}
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        {isCollapsed ? <ArrowRightFromLine /> : <ArrowLeftFromLine />}
+      </button>
 
-    <button 
-      className={styles.collapseToggle}  
-      onClick={() => setIsCollapsed(!isCollapsed)}
-    >
-      {isCollapsed ? <ArrowRightFromLine/> : <ArrowLeftFromLine/> }
-      
-    </button>
-
-      
       <Link href="/" className={styles.navItem}>
-        <Image
-          src="/minecraftLogo.webp"
-          alt="Logo"
-          width="24"
-          height="24"
-        />
+        <Image src="/minecraftLogo.webp" alt="Logo" width={24} height={24} />
         {!isCollapsed && <span>Mineboard</span>}
       </Link>
 

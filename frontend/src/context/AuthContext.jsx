@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-
+// currently not in use
 const AuthContext = createContext();
 
 export function useAuth() {

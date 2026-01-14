@@ -41,10 +41,37 @@
     color: white;
     cursor: pointer;
     border-radius: 20px;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 60px;
 }
 
 .imageContainer {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.saveButton {
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 14px;
+    border-radius: 15px;
+    border: none;
+    background-color: black;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.buttonContainer {
+    display: flex;
+    justify-content: center;
 }

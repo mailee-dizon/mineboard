@@ -5,10 +5,12 @@ import styles from "./EditProfile.module.css"
 import { minecraftFont } from '@/app/fonts';
 import { useUser } from '@clerk/nextjs';
 import { API_URL } from '../../../constants/api';
-import { uploadImages } from '../LoginContainer/UploadImages';
+import { uploadImages } from './UploadImages';
+import { useRouter } from 'next/navigation';
 
 export default function EditProfile({ initialData }) {
     const { user } = useUser()
+    const router = useRouter();
 
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -40,7 +42,33 @@ export default function EditProfile({ initialData }) {
         } catch (error) {
             console.error("Error uploading pfp: ", error);
         }
+    }
 
+    const updateProfile = async () => {
+        if (!user) return
+        try {
+            const response = await fetch(`${API_URL}/users/${user.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify({
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    bio: bio
+                })
+            })
+            
+            if (!response.ok) {
+                const errText = await response.text()
+                throw new Error(errText)
+            }
+            router.push(`/profileview/${user.id}`)
+
+        } catch (error) {
+            console.error("Error updating profile: ", error)
+        }
     }
 
     return (
@@ -60,7 +88,6 @@ export default function EditProfile({ initialData }) {
                     className={styles.inputImage}
                     onChange={(e) => {
                         const file = e.target.files[0]
-                        
                         handlePfpChange(file);
                     }}
                 />
@@ -78,7 +105,7 @@ export default function EditProfile({ initialData }) {
                 <h3>First Name</h3>
                 <input
                     type="text"
-                    placeholder={initialData.firstName || "Enter First Name"}
+                    placeholder={initialData.firstname || "Enter First Name"}
                     className={`${styles.input} ${minecraftFont.className}`}
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -86,7 +113,7 @@ export default function EditProfile({ initialData }) {
                 <h3>Last Name</h3>
                 <input
                     type="text"
-                    placeholder={initialData.firstName || "Enter Last Name"}
+                    placeholder={initialData.lastname || "Enter Last Name"}
                     className={`${styles.input} ${minecraftFont.className}`}
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -100,7 +127,9 @@ export default function EditProfile({ initialData }) {
                     onChange={(e) => setBio(e.target.value)}
                 />
                 <br/>
-                <button className={styles.saveButton}>Save</button>
+                <div className={styles.buttonContainer}>
+                    <button className={`${styles.saveButton} ${minecraftFont.className}`} onClick={updateProfile}>Save</button>
+                </div>
             </div>
         </div>
     );

@@ -72,10 +72,10 @@ export async function editUser(req, res) {
 
         const user = await sql`
             UPDATE users
-            SET username = COALESCE(${username}, username),
-            firstName = COALESCE(${firstName}, firstName),
-            lastName = COALESCE(${lastName}, lastName),
-            bio = COALESCE(${bio}, bio),
+            SET username = COALESCE(NULLIF(${username}, ''), username),
+            firstName = COALESCE(NULLIF(${firstName}, ''), firstName),
+            lastName = COALESCE(NULLIF(${lastName}, ''), lastName),
+            bio = COALESCE(NULLIF(${bio}, '') bio),
             pfp = COALESCE(${pfp}, pfp)
             WHERE userid = ${userId}
             RETURNING *

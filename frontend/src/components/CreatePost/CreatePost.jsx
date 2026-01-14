@@ -16,11 +16,6 @@ const options = [
     {value: "furniture", label: "Furniture"},
     ];
 
-/**
-    TO DO:
-        handle errors (no title, no images selected)
-        these 2 NEED a value, prompt little error msg
- */
 export const CreatePost = () => {
     const { isSignedIn, user } = useUser();
     const [title, setTitle] = useState("");
@@ -42,11 +37,6 @@ export const CreatePost = () => {
         setNoImgs(imgsError);
 
         if (titleError || imgsError) return;
-
-        if (hasError){
-            console.log("Post failed: No images and/or title inputted.", noTitle, noImgs)
-            return;
-        }
 
         try {
             

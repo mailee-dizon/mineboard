@@ -1,4 +1,3 @@
-// src/app/layout.jsx 
 'use client';
 import { AuthProvider } from "@/context/AuthContext";
 import { ClerkProvider } from "@clerk/nextjs";

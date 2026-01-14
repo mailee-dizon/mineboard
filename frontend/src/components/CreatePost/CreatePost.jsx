@@ -26,9 +26,12 @@ export const CreatePost = () => {
     const [title, setTitle] = useState("");
     const [descript, setDescript] = useState("");
     const [images, setImages] = useState([]);
-    
     // TO DO: implement categories
     const [selectedCategories, setSelectedCategories] = useState([]);
+
+    const [noImgs, setNoImgs] = useState(false);
+    const [noTitle, setNoTitle] = useState(false);
+    let hasError = false;
 
     const checkErrors = () =>{
         // if no errors, call handleSubmit; else prompt. 
@@ -36,6 +39,20 @@ export const CreatePost = () => {
     const handleSumbit = async () => {
         // TO DO: implement categories
         // const categoryValues = selectedCategories.map(c => c.value)
+        if (!title.trim()){
+            setNoTitle(true);
+            hasError = true;
+        }
+        if (images.length === 0){
+            setNoImgs(true);
+            hasError = true;
+        }
+
+        if (hasError){
+            console.log("Post failed: No images and/or title inputted.", noTitle, noImgs)
+            return;
+        }
+
         try {
             
             // stores local images (FileObjects) -> firebase
@@ -77,7 +94,10 @@ export const CreatePost = () => {
 
     return (
     <div className={styles.mainCreateBox} >
-        <SelectFiles images={images} setImages={setImages}/>
+        <div className={styles.requiredBox}>
+            <SelectFiles images={images} setImages={setImages}/>
+            {noImgs&& <p className={styles.selectAtLeastLabel}>* Select at least one image</p>}
+        </div>
         <div className={styles.subCreateBox}>
             <input 
                 className={styles.inputBox}
@@ -85,6 +105,7 @@ export const CreatePost = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
+            {noTitle&& <p className={styles.selectAtLeastLabel}>* Title required </p>}
             <textarea 
                     className={`${styles.inputBox} ${styles.descriptionBox}`}
                     placeholder="Description"

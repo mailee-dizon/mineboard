@@ -3,15 +3,6 @@ import React, { useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import styles from "./SelectFiles.module.css";
 
-/*
-    Need to style more; when we add pic i want it to be displayed/replace uploadImagesBox
-    should have button like + to add more pics, display these like insta where you have arrows < > to go back and forth 
-    to see all pics u uploaded
-
-    uploadImage button uploads selected files -> previews (should preview before??? after??)
-    if no files chosen (images.length == 0) -> need an error/alert saying "please select at least one file"
-    */
-
 export const SelectFiles = ({images=[], setImages}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -23,7 +14,18 @@ export const SelectFiles = ({images=[], setImages}) => {
         setCurrentIndex(prev => (prev === images.length-1 ? 0 : prev+1));
     };
     const removeCurrent = () => {
-        // dont want a selected image, remove from preview/uploads. 
+        if (images.length === 0){
+            return;
+        }
+        const newImages = [...images]; // copy to avoid mutating prop
+        newImages.splice(currentIndex, 1); // remove only current image
+        setImages(newImages);
+
+        setCurrentIndex(prev => {
+            if (prev === 0) return 0; // if first image removed
+            if (prev >= newImages.length) return newImages.length - 1; // last image removed
+            return prev;
+        });
     }
 
     const handleFiles = (event) => {
@@ -56,7 +58,7 @@ export const SelectFiles = ({images=[], setImages}) => {
                         />
                     )}
                     <img
-                        src={images[currentIndex].url} // redo;; this uses uploadthing
+                        src={images[currentIndex].url} 
                         alt="preview"
                         className={styles.previewImage}
                     />        

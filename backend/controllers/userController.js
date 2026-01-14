@@ -75,7 +75,7 @@ export async function editUser(req, res) {
             SET username = COALESCE(NULLIF(${username}, ''), username),
             firstName = COALESCE(NULLIF(${firstName}, ''), firstName),
             lastName = COALESCE(NULLIF(${lastName}, ''), lastName),
-            bio = COALESCE(NULLIF(${bio}, '') bio),
+            bio = COALESCE(NULLIF(${bio}, ''), bio),
             pfp = COALESCE(${pfp}, pfp)
             WHERE userid = ${userId}
             RETURNING *

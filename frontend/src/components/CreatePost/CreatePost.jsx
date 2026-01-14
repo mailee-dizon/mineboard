@@ -31,22 +31,17 @@ export const CreatePost = () => {
 
     const [noImgs, setNoImgs] = useState(false);
     const [noTitle, setNoTitle] = useState(false);
-    let hasError = false;
 
-    const checkErrors = () =>{
-        // if no errors, call handleSubmit; else prompt. 
-    }
     const handleSumbit = async () => {
         // TO DO: implement categories
         // const categoryValues = selectedCategories.map(c => c.value)
-        if (!title.trim()){
-            setNoTitle(true);
-            hasError = true;
-        }
-        if (images.length === 0){
-            setNoImgs(true);
-            hasError = true;
-        }
+        const titleError = !title.trim();
+        const imgsError = images.length === 0;
+
+        setNoTitle(titleError);
+        setNoImgs(imgsError);
+
+        if (titleError || imgsError) return;
 
         if (hasError){
             console.log("Post failed: No images and/or title inputted.", noTitle, noImgs)
@@ -77,6 +72,8 @@ export const CreatePost = () => {
             setDescript("");
             setImages([]);
             setSelectedCategories([]);
+            setNoImgs(false);
+            setNoTitle(false);
             alert("Post created!");
         }
         catch (err){

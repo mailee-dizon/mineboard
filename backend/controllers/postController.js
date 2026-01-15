@@ -89,7 +89,7 @@ export async function getPostByTitle(req, res) {
 export async function editPost(req, res) {
     try {
         const { postId } = req.params;
-        const { userId, title, descript, images, categories } = req.body
+        const { title, descript, images, categories, likes } = req.body
 
         if (!postId) {
             res.status(400).json({message: "Post Id needed"});
@@ -97,11 +97,11 @@ export async function editPost(req, res) {
 
         const post = await sql`
             UPDATE post
-            SET userid = ${userId},
-            title = ${title},
-            descript = ${descript},
-            images = ${images},
-            categories = ${categories}
+            SET title = COALESCE(${title}, title),
+            descript = COALESCE(${descript}, descript),
+            images = COALESCE(${images}, images),
+            categories = COALESCE(${categories}, categories),
+            likes = COALESCE(${likes}, likes)
             WHERE postId = ${postId}
             RETURNING *
         `

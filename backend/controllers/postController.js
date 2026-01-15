@@ -21,6 +21,28 @@ export async function createPost(req, res) {
     }
 }
 
+export async function getPostByCategory(req, res) {
+    try {
+        const { categories } = req.body;
+
+        if (!categories || !Array.isArray(categories) || categories.length === 0) {
+            return res.status(400).json({message: "Need categories to get posts"})
+        }
+
+        const posts = await sql`
+            SELECT *
+            FROM post
+            WHERE categories && ${categories}::category[]
+            ORDER BY createdat DESC;
+        `;
+
+        res.status(201).json(posts)
+    } catch (error) {
+        console.error("Error getting post by categories: ", error);
+        res.status(500).json({message: "Error getting post by categories"})
+    }
+}
+
 export async function getAllUserPosts(req, res) {
     try {
         const { userId } = req.params
@@ -41,6 +63,28 @@ export async function getAllUserPosts(req, res) {
         res.status(500).json({message: "Error getting users posts"});
     }
 }
+
+export async function getPostByTitle(req, res) {
+    try {
+        const { title } = req.params;
+
+        if (!title) {
+            return res.status(400).json({message: "Need a title"})
+        }
+
+        const posts = await sql`
+            SELECT * FROM post
+            WHERE title ILIKE ${'%' + title + '%'}
+            ORDER BY createdat
+        `
+
+        res.status(200).json(posts)
+    } catch (error) {
+        console.error("Error getting post by title: ", error);
+        res.status(500).json({message: "Error getting post by title: ", error})
+    }
+}
+
 
 export async function editPost(req, res) {
     try {

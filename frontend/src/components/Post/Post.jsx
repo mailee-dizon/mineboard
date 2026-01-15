@@ -70,11 +70,13 @@ export const Post = () => {
                 </div>
                 <div className={styles.bottomElements}>
                 <Heart 
-                    onClick={() => likePost(
+                onClick={() => 
+                    likePost(
                         post.postid, 
-                        { isLiked, setIsLiked, numLikes, setNumLikes }, 
+                        { isLiked, setIsLiked, numLikes, setNumLikes, post }, 
                         { isLoaded, user }
-                    )}
+                    )
+                }
                     fill={isLiked ? "black" : "none"}
                 />
                 <p>{numLikes}</p>

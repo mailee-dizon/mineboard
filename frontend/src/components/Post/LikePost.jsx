@@ -1,41 +1,39 @@
 import { API_URL } from '../../../constants/api';
 
-export const likePost = async (postid, { isLiked, setIsLiked, numLikes, setNumLikes }, userInfo) => {
-    const { isLoaded, user } = userInfo;
+export const likePost = async (postid, { isLiked, setIsLiked, numLikes, setNumLikes, post }, userInfo) => {
+  const { isLoaded, user } = userInfo;
+  if (!isLoaded) return;
 
-    // if already is liked (isLiked) -> click means UNLIKE -> setIsLiked(false), remove like from likes @postid, userid, setNumLikes(prev-1)
-    // if !isLiked -> they are LIKING -> setIsLiked(true), add to likes @ postid, using userid (current user), setNumLikes(prev+1)
-    try {
-        if (!isLoaded) return;
-        if (isLiked) {
-            setIsLiked(false);
-            setNumLikes(prev => prev-1);
-            const res = await fetch(`${API_URL}/likes/${user.id}/${postid}`, {method: "DELETE"});
-            
-            if (!res.ok) {
-                console.error("Failed to unlike post: ", res.text());
-                return;
-            }
+  const delta = isLiked ? -1 : 1; // in order to update like (INTEGER) in post
+  const newLikes = numLikes + delta;
 
-        }
-        else{
-            setIsLiked(true);
-            setNumLikes(prev => prev+1);
-            const res = await fetch(`${API_URL}/likes/${user.id}/${postid}`, {
-                method: "POST", 
-            });
+  // optimistic UI
+  setIsLiked(!isLiked);
+  setNumLikes(newLikes);
 
-            if (!res.ok) {
-                console.error("Failed to like post: ", res.text());
-                return;
-            }
+  try {
+    const likeRes = await fetch(
+      `${API_URL}/likes/${user.id}/${postid}`, // post/delete a like within likes
+      { method: isLiked ? "DELETE" : "POST" } // combine logic
+    );
 
-        }
-        
-    }
-    catch (err) {
-        console.log('Error liking/unliking post: ', err);
-    }
-    
-  return numLikes;
-}
+    if (!likeRes.ok) throw new Error(await likeRes.text());
+
+    const postRes = await fetch(`${API_URL}/posts/${postid}`, { // update like (INTEGER) in post
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        ...post, // set all old data again
+        likes: newLikes // update likes!!!
+        }),
+    });
+
+    if (!postRes.ok) throw new Error(await postRes.text());
+
+  } catch (err) {
+    // rollback UI 
+    setIsLiked(isLiked);
+    setNumLikes(numLikes);
+    console.error("Like update failed:", err);
+  }
+};

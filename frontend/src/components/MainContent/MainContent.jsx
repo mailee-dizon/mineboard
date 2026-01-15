@@ -9,7 +9,7 @@ export default function MainContent({ children }) {
     <main
         style={{
           marginTop: 80,
-          marginLeft: isCollapsed ? "60px" : "200px",
+          marginLeft: isCollapsed ? "30px" : "170px",
           paddingTop: 10,
           paddingLeft: isCollapsed ? 40 : 50,
           transition: "margin-left 0.3s",

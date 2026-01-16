@@ -1,19 +1,16 @@
 'use client';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from "./Post.module.css";
-import { API_URL } from '../../../constants/api';
 import { useUser } from '@clerk/nextjs';
 import { ArrowLeft, ArrowRight, Heart } from 'lucide-react'
 import { likePost } from './LikePost'; 
 import Link from 'next/link';
 
-export const Post = () => {
+export const Post = ({ post, userData }) => {
     const { isLoaded, user } = useUser();
-    const [ post, setPost ] = useState();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [ isLiked, setIsLiked ] = useState(false);
-    const [ numLikes, setNumLikes ] = useState();
-    const [ postUser, setPostUser ] = useState();
+    const [ numLikes, setNumLikes ] = useState(post.likes);
     
     const showPrev = () => {
         setCurrentIndex(prev => (prev === 0 ? post.images.length - 1 : prev - 1));
@@ -22,26 +19,6 @@ export const Post = () => {
         setCurrentIndex(prev => (prev === post.images.length-1 ? 0 : prev+1));
     };
 
-    useEffect(() => {
-        if (!isLoaded) return;
-        const fetchData = async () => {
-            const postRes = await fetch(`${API_URL}/posts/${user.id}`) // get post by user; TO DO: CHANGE BASED ON CATEGORIES/TITLE
-            const postData = await postRes.json();
-            const currentPost = postData[7]
-            console.log("Post data: ", postData)
-            setPost(currentPost); // hardcoded post index within users post[]; need to change 
-            setNumLikes(currentPost.likes)
-
-            const userRes = await fetch(`${API_URL}/users/id/${currentPost.userid}`) // get the user who created the post
-            const userData = await userRes.json();
-            console.log("User data: ", userData)
-            setPostUser(userData[0]);
-
-        }
-        fetchData()
-    }
-        ,[isLoaded, user]
-    )
 
   return (
     <div>
@@ -62,18 +39,16 @@ export const Post = () => {
                 </div>
 
                 <div className={styles.rhsPost}>
-                    {postUser&& (
-                        <Link href={`/profileview/${postUser.userid}`}>
+                        <Link href={`/profileview/${userData.userid}`}>
                             <div className={styles.userInfo}>
                                 <img
-                                    src={postUser.pfp}
+                                    src={userData.pfp}
                                     alt="user pfp"
                                     className={styles.pfpIcon}
                                 />
-                                <p>{postUser.username}</p>
+                                <p>{userData.username}</p>
                             </div>
                         </Link>
-                    )}
                     <div className={styles.textBox}>
                         <h1>{post.title}</h1>
                         <p>{post.descript}</p>

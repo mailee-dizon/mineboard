@@ -1,10 +1,8 @@
 .mainCreateBox {
-    height: fit-content;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    width: 100%;
     padding: 10px;
 }
 
@@ -26,16 +24,17 @@
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
-    width: inherit;
     font-family: inherit;
+    color: black;
+}
+ç
+.inputBox::placeholder {
     color: #757575;
-
 }
 
 .inputBox input:focus, .descriptionBox:focus {
     outline: none;
     caret-color: #757575;
-    color: #757575;
 }
 
 .postSubmitBox {

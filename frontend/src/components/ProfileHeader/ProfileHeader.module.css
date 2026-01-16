@@ -1,5 +1,27 @@
-.header {
+.container {
+    margin: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.headerDetails {
     display: flex;
+    justify-content: space-between;
+}
+
+.profileDetails {
+    display: flex;
+    gap: 20px;
+}
+
+.profileDetails2 {
+    display: flex;
+    gap: 200px;
+}
+
+.followDetails {
+    display: grid;
+    place-items: center;
 }
 
 .pfp {
@@ -9,4 +31,17 @@
 
 .details {
     margin-left: 10px;
+}
+
+.editButtonContainer {
+    margin: 20px;
+    margin-top: 30px;
+}
+
+.editButton{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: black;
+    border: none;
+    cursor: pointer;
 }

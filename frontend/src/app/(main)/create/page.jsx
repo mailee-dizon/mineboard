@@ -5,7 +5,6 @@ import { CreatePost } from "@/components/CreatePost/CreatePost";
 export default function CreatePage() {
   return (
       <div>
-        <h1>Create Post</h1>
         <CreatePost/>
       </div>
   );

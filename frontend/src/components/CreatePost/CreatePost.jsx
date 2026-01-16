@@ -105,7 +105,7 @@ export const CreatePost = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
-            {noTitle&& <p className={styles.selectAtLeastLabel}>* Title required </p>}
+            {noTitle && <p className={styles.selectAtLeastLabel}>* Title required </p>}
             <textarea 
                     className={`${styles.inputBox} ${styles.descriptionBox}`}
                     placeholder="Description"

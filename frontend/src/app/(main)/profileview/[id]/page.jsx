@@ -1,7 +1,7 @@
 
 import ProfileHeader from "@/components/ProfileHeader/ProfileHeader";
-import react from "react";
 import { API_URL } from "../../../../../constants/api.js";
+import ProfileContent from "@/components/ProfileContent/ProfileContent.jsx";
 
 export default async function ProfilePage({ params }) {
     const { id } = await params;
@@ -12,6 +12,7 @@ export default async function ProfilePage({ params }) {
     return (
         <div>
             <ProfileHeader profileUser={id} initialData={data[0]}/>
+            <ProfileContent/>
         </div>
     )
 }

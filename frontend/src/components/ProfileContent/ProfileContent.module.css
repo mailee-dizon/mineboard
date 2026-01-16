@@ -1,0 +1,25 @@
+.line{
+    border-bottom: 1px solid black; /* Creates a solid black line 1px thick */
+    width: 100%; /* The line spans the full width of its container */
+    margin-top: 10px; /* Adds space above the line */
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-around
+}
+
+.topBarButton {
+    color: black;
+    background: none;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.topButtonUnderline {
+    border: 2px solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}

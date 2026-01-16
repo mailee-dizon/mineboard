@@ -16,11 +16,6 @@ const options = [
     {value: "furniture", label: "Furniture"},
     ];
 
-/**
-    TO DO:
-        handle errors (no title, no images selected)
-        these 2 NEED a value, prompt little error msg
- */
 export const CreatePost = () => {
     const { isSignedIn, user } = useUser();
     const [title, setTitle] = useState("");
@@ -31,27 +26,17 @@ export const CreatePost = () => {
 
     const [noImgs, setNoImgs] = useState(false);
     const [noTitle, setNoTitle] = useState(false);
-    let hasError = false;
 
-    const checkErrors = () =>{
-        // if no errors, call handleSubmit; else prompt. 
-    }
     const handleSumbit = async () => {
         // TO DO: implement categories
         // const categoryValues = selectedCategories.map(c => c.value)
-        if (!title.trim()){
-            setNoTitle(true);
-            hasError = true;
-        }
-        if (images.length === 0){
-            setNoImgs(true);
-            hasError = true;
-        }
+        const titleError = !title.trim();
+        const imgsError = images.length === 0;
 
-        if (hasError){
-            console.log("Post failed: No images and/or title inputted.", noTitle, noImgs)
-            return;
-        }
+        setNoTitle(titleError);
+        setNoImgs(imgsError);
+
+        if (titleError || imgsError) return;
 
         try {
             
@@ -77,6 +62,8 @@ export const CreatePost = () => {
             setDescript("");
             setImages([]);
             setSelectedCategories([]);
+            setNoImgs(false);
+            setNoTitle(false);
             alert("Post created!");
         }
         catch (err){

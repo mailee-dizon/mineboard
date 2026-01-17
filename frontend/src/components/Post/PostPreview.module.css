@@ -1,9 +1,13 @@
 .postPreview {
-    width: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 210px;
+    transition: transform 250ms ease;
+    margin-bottom: 17px;
 }
+
 .previewImage {
     width: 100%;
     height: auto;
-    object-fit: contain;
-    border-radius: 20px;
+    display: block;
 }

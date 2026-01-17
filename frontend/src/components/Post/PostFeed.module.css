@@ -1,8 +1,11 @@
 .postGrid {
-    width: 100%;
+    display: flex;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.postItem {
-  width: 260px;
-  margin-bottom: 16px;
+.postGridColumn{
+    background-clip: padding-box;
+    padding-left: 10px
 }

@@ -19,7 +19,7 @@ export default async function MainLayout({ children }) {
   return (
     <>
     <UIProvider>
-        <TopBar initialData={initData} isLogged={user.id}/>
+        <TopBar initialData={initData} isLogged={user?.id}/>
         <NavBar />
         <MainContent>
           { children }

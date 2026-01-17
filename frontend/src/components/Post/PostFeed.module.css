@@ -1,4 +1,8 @@
 .postGrid {
-    display: flex;
-    margin: 20px;
+    width: 100%;
+}
+
+.postItem {
+  width: 260px;
+  margin-bottom: 16px;
 }

@@ -1,7 +1,7 @@
 'use client'
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./LoginButton.module.css";
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 

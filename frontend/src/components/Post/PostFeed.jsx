@@ -5,12 +5,12 @@ import Masonry from "react-masonry-css";
 import useWindowWidth from "./useWindowWidth.jsx";
 
 export const PostFeed = ({ initialPosts }) => {
-  const width = useWindowWidth();
+  const [ref, width] = useWindowWidth();
 
-  const columns = Math.max(1, Math.floor(width / 250)); // 250px per column
+  const columns = Math.max(1, Math.floor(width / 220)); // 250px per column
 
-  return (
-
+  return (  
+    <div ref={ref} className={styles.gridWrapper}>
       <Masonry 
         breakpointCols={columns}
         className={styles.postGrid}
@@ -20,6 +20,6 @@ export const PostFeed = ({ initialPosts }) => {
             <PostPreview key={post.postid} post={post}/>
           ))}
       </Masonry>
-
+    </div>
   );
 };

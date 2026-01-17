@@ -4,6 +4,7 @@
     width: 210px;
     transition: transform 250ms ease;
     margin-bottom: 17px;
+    box-sizing: border-box;
 }
 
 .previewImage {

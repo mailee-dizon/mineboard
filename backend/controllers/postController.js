@@ -33,7 +33,7 @@ export async function getPostByCategory(req, res) {
             SELECT *
             FROM post
             WHERE categories && ${categories}::category[]
-            ORDER BY createdat DESC;
+            ORDER BY createdat DESC
         `;
 
         res.status(201).json(posts)
@@ -42,6 +42,22 @@ export async function getPostByCategory(req, res) {
         res.status(500).json({message: "Error getting post by categories"})
     }
 }
+
+export async function getAllPost(req, res) {
+    try {
+        const posts = await sql`
+            SELECT * FROM post
+            ORDER BY random()
+        `
+
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error("Error getting all posts: ", error);
+        res.status(500).json({message: "Error getting all posts"});
+    }
+}
+
+
 
 export async function getAllUserPosts(req, res) {
     try {

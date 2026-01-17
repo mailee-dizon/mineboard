@@ -9,7 +9,7 @@ import {SearchResults} from "../TopBar/SearchResults"
 import { LoginButton } from "../TopBar/LoginButton";
 import { useUI } from "@/context/UIContext";
 
-export default function TopBar({ initialData }) {
+export default function TopBar({ initialData, isLogged }) {
     const [results, setResults] = useState([]);
     const { isCollapsed } = useUI();
     
@@ -29,7 +29,7 @@ export default function TopBar({ initialData }) {
                 <SearchResults results={results}/>
             </div>
             <div className={`${styles.topBarItem} ${styles.loginButton}`}>
-                <LoginButton initialData={initialData}/>
+                <LoginButton initialData={initialData} isLogged={isLogged}/>
             </div>
 
 

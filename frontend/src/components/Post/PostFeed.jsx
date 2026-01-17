@@ -9,26 +9,29 @@ export const PostFeed = ({ initialPosts }) => {
   const gridRef = useRef(null);
 
   useEffect(() => {
-    if (!gridRef.current) return;
+    let Masonry;
 
-    let msnry;
+    const initMasonry = async () => {
+      if (!gridRef.current) return;
 
-    // dynamically import Masonry only in the browser
-    import("masonry-layout").then((Masonry) => {
-      msnry = new Masonry.default(gridRef.current, {
-        itemSelector: `.${styles.postItem}`,
-        columnWidth: `.${styles.postItem}`,
-        gutter: 16,
+      Masonry = (await import("masonry-layout")).default;
+
+      masonryRef.current = new Masonry(gridRef.current, {
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-item',
         percentPosition: true,
+        gutter: 10,
       });
 
       imagesLoaded(gridRef.current, () => {
-        msnry.layout();
+        masonryRef.current.layout();
       });
-    });
+    };
+
+    initMasonry();
 
     return () => {
-      if (msnry) msnry.destroy();
+      masonryRef.current?.destroy();
     };
   }, []);
 

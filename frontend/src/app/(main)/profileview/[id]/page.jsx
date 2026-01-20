@@ -16,8 +16,8 @@ export default async function ProfilePage({ params }) {
     return (
         <div>
             <ProfileHeader profileUser={id} initialData={data[0]}/>
-            <ProfileContent/>
-            <PostFeed initialPosts={userPosts}/>
+            <ProfileContent initialPosts={userPosts}/>
+            
         </div>
     )
 }

@@ -10,10 +10,13 @@
   "dependencies": {
     "@clerk/nextjs": "^6.36.5",
     "firebase": "^12.7.0",
+    "imagesloaded": "^5.0.0",
     "lucide-react": "^0.562.0",
+    "masonry-layout": "^4.2.2",
     "next": "^16.1.1",
     "react": "~19.2.3",
     "react-dom": "~19.2.3",
+    "react-masonry-css": "^1.0.16",
     "react-select": "^5.10.2",
     "uuid": "^13.0.0"
   },

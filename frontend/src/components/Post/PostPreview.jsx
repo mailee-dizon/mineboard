@@ -14,4 +14,4 @@ export const PostPreview = ({ post}) => {
         </div>
     </Link>
   );
-};
+}; 

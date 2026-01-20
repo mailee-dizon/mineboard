@@ -1,5 +1,14 @@
+.postPreview {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 210px;
+    transition: transform 250ms ease;
+    margin-bottom: 17px;
+    box-sizing: border-box;
+}
+
 .previewImage {
-    width: 150px;
-    height: 150px;
-    border: 1px black;
+    width: 100%;
+    height: auto;
+    display: block;
 }

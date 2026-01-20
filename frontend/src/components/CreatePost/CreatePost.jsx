@@ -11,9 +11,10 @@ import { useUser } from '@clerk/nextjs';
 const options = [
     {value: "interior", label: "Interior"},
     {value: "exterior", label: "Exterior"},
-    {value: "castle", label: "Castle"},
     {value: "house", label: "House"},
-    {value: "furniture", label: "Furniture"},
+    {value: "town", label: "Town"},
+    {value: "castle", label: "Castle"},
+    {value: "decoration", label: "Decoration"},
     ];
 
 export const CreatePost = () => {
@@ -29,9 +30,12 @@ export const CreatePost = () => {
 
     const handleSumbit = async () => {
         // TO DO: implement categories
-        // const categoryValues = selectedCategories.map(c => c.value)
+        
+        const categoryValues = selectedCategories.map(c => c.value)
         const titleError = !title.trim();
         const imgsError = images.length === 0;
+        
+        console.log(categoryValues)
 
         setNoTitle(titleError);
         setNoImgs(imgsError);
@@ -51,7 +55,7 @@ export const CreatePost = () => {
                     title, 
                     descript,
                     images: firebaseUrls,
-                    // categories: []
+                    categories: categoryValues,
                 })
             });
             if (!res.ok) {

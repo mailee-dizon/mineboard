@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-items: center;
+    align-items: center;
     margin: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 8px #ddd;
@@ -28,7 +29,9 @@
 
 .imagesContainer { 
     border-right: 1px solid #e5e5e5;
-    padding: 10px;
+    padding: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -36,7 +39,7 @@
     gap: 10px;
 }
 .postImages {
-    height: 400px;
+    height: auto;
     width: 400px;
     border-radius: 10px;
 }
@@ -66,9 +69,28 @@
 .bottomElements {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     border-top: 1px solid #e5e5e5;
     padding-left: 10px;
     gap: 60%;
     align-items: center;
     font-size: small;
+    cursor: pointer;
+}
+
+.likeSave {
+    display: flex;
+    align-items: center;
+}
+
+.arrowButton {
+    cursor: pointer;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+}
+
+.arrowButton:hover {
+    background-color: rgba(211, 211, 211, 0.5);
 }

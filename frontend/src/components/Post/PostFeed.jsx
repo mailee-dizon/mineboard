@@ -7,7 +7,7 @@ import useWindowWidth from "./useWindowWidth.jsx";
 export const PostFeed = ({ initialPosts }) => {
   const [ref, width] = useWindowWidth();
 
-  const columns = Math.max(1, Math.floor(width / 220)); // 250px per column
+  const columns = Math.max(1, Math.floor(width / 220));
 
   return (  
     <div ref={ref} className={styles.gridWrapper}>

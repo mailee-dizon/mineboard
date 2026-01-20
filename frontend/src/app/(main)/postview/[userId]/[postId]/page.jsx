@@ -17,7 +17,6 @@ export default async function PostViewPage({ params }) {
 
   return (
     <div>
-      <h1>Post View Page</h1>
       <Post post={post} userData={userData[0]} />
     </div>
   );

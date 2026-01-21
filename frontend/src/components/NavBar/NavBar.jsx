@@ -1,6 +1,5 @@
 "use client";
-
-import Link from "next/link";
+import React, { useState } from 'react'
 import Image from "next/image";
 import {
   Home,
@@ -13,9 +12,11 @@ import {
 } from "lucide-react";
 import styles from "./NavBar.module.css";
 import { useUI } from "@/context/UIContext";
+import { useRouter } from 'next/navigation';
 
 export default function NavBar() {
   const { isCollapsed, setIsCollapsed } = useUI();
+  const router = useRouter();
 
   return (
     <nav className={styles.navbar}>
@@ -26,25 +27,46 @@ export default function NavBar() {
         {isCollapsed ? <ArrowRightFromLine /> : <ArrowLeftFromLine />}
       </button>
 
-      <Link href="/" className={styles.navItem}>
-        <Image src="/minecraftLogo.webp" alt="Logo" width={24} height={24} />
+      <div 
+        className={styles.navItem} 
+        onClick={() => {
+          router.push(`/`);
+        }
+        }
+      >
+        <Image src="/minecraftLogo.webp" alt="Logo" width={24} height={24}/>
         {!isCollapsed && <span>Mineboard</span>}
-      </Link>
+      </div>
 
-      <Link href="/" className={styles.navItem}>
-        <Home />
+      <div 
+        className={styles.navItem} 
+        onClick={() => {
+          router.push(`/home`)
+          }
+        }
+      >
+        <Home/>
         {!isCollapsed && <span>Home</span>}
-      </Link>
+      </div>
 
-      <Link href="/explore" className={styles.navItem}>
-        <Compass />
+      <div 
+        className={styles.navItem} 
+        onClick={() => 
+          router.push(`/explore`)
+        }
+      >
+        <Compass/>
         {!isCollapsed && <span>Explore</span>}
-      </Link>
+      </div>
 
-      <Link href="/create" className={styles.navItem}>
+      <div 
+        className={styles.navItem} 
+        onClick={() => 
+          router.push(`/create`)    
+      }>
         <SquarePlus />
         {!isCollapsed && <span>Create</span>}
-      </Link>
+      </div>
 
       <div className={styles.navItem}>
         <Bell />

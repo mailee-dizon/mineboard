@@ -4,14 +4,16 @@ import styles from "./Post.module.css";
 import { useUser } from '@clerk/nextjs';
 import { ArrowLeft, ArrowRight, Bookmark, Heart } from 'lucide-react'
 import { likePost } from './LikePost'; 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Category } from './Category';
 
 export const Post = ({ post, userData }) => {
     const { isLoaded, user } = useUser();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [ isLiked, setIsLiked ] = useState(false);
     const [ numLikes, setNumLikes ] = useState(post.likes);
-    
+    const router = useRouter();
+    console.log(post.categories)
     const showPrev = () => {
         setCurrentIndex(prev => (prev === 0 ? post.images.length - 1 : prev - 1));
     };
@@ -39,19 +41,28 @@ export const Post = ({ post, userData }) => {
                 </div>
 
                 <div className={styles.rhsPost}>
-                        <Link href={`/profileview/${userData.userid}`}>
-                            <div className={styles.userInfo}>
-                                <img
-                                    src={userData.pfp}
-                                    alt="user pfp"
-                                    className={styles.pfpIcon}
-                                />
-                                <p>{userData.username}</p>
-                            </div>
-                        </Link>
+                    <div 
+                        className={styles.userInfo}
+                        onClick={() => router.push(`/profileview/${userData.userid}`)}
+                    >
+                        <img
+                            src={userData.pfp}
+                            alt="user pfp"
+                            className={styles.pfpIcon}
+                        />
+                        <p>{userData.username}</p>
+                    </div>
                     <div className={styles.textBox}>
                         <h1>{post.title}</h1>
                         <p>{post.descript}</p>
+                        
+                        {post.categories != null && post.categories.length > 2 && (
+                        <div className={styles.postCategories}>
+                            {(post.categories.replace(/[{}]/g, '').split(',')).map(category => ( // post.categories is a literal string with {category,category....}
+                                <Category key={category} category={category}/>
+                            ))}
+                        </div>
+                        )}
                     </div>
                     <div className={styles.bottomElements}>
                         <div className={styles.likeSave}>

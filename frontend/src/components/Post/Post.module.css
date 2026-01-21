@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     justify-items: center;
-    align-items: center;
     margin: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 8px #ddd;
@@ -18,6 +17,7 @@
     justify-items: center;
     border-bottom: 1px solid #e5e5e5;
     padding: 5px;
+    height: 75px;
 }
 
 .pfpIcon {
@@ -32,7 +32,7 @@
     padding: 40px;
     padding-left: 20px;
     padding-right: 20px;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -54,6 +54,14 @@
     flex-direction: column;
     margin-bottom: 250px;
     padding-left: 10px;
+    flex-grow: 1;
+}
+
+.postCategories {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
 }
 
 .isLikedHeart {
@@ -72,10 +80,12 @@
     justify-content: space-between;
     border-top: 1px solid #e5e5e5;
     padding-left: 10px;
+    padding-right: 10px;
     gap: 60%;
     align-items: center;
     font-size: small;
     cursor: pointer;
+    height: 75px;
 }
 
 .likeSave {
@@ -94,3 +104,4 @@
 .arrowButton:hover {
     background-color: rgba(211, 211, 211, 0.5);
 }
+

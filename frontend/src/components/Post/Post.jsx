@@ -13,14 +13,13 @@ export const Post = ({ post, userData }) => {
     const [ isLiked, setIsLiked ] = useState(false);
     const [ numLikes, setNumLikes ] = useState(post.likes);
     const router = useRouter();
-    console.log(post.categories)
+
     const showPrev = () => {
         setCurrentIndex(prev => (prev === 0 ? post.images.length - 1 : prev - 1));
     };
     const showNext = () => {
         setCurrentIndex(prev => (prev === post.images.length-1 ? 0 : prev+1));
     };
-
 
   return (
     <div>

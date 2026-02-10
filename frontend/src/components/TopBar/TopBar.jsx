@@ -2,7 +2,6 @@
 "use client"; // important for interactive components in Next.js
 
 import React, {useState} from "react";
-import Link from "next/link";
 import styles from "./TopBar.module.css";
 import {SearchBar} from "../TopBar/SearchBar"
 import {SearchResults} from "../TopBar/SearchResults"
@@ -11,6 +10,8 @@ import { useUI } from "@/context/UIContext";
 
 export default function TopBar({ initialData, isLogged }) {
     const [results, setResults] = useState([]);
+    const [ searchInput, setSearchInput ] = useState("");
+    const [ isLoading, setIsLoading ] = useState(false);
     const { isCollapsed } = useUI();
     
     return (
@@ -25,8 +26,8 @@ export default function TopBar({ initialData, isLogged }) {
             }}
         >
             <div className={`${styles.topBarItem} ${styles.searchBar}`}>
-                <SearchBar setResults={setResults}/>
-                <SearchResults results={results}/>
+                <SearchBar setResults={setResults} searchInput={searchInput} setSearchInput={setSearchInput} setIsLoading={setIsLoading}/>
+                <SearchResults results={results} searchInput={searchInput} setSearchInput={setSearchInput} isLoading={isLoading}/>
             </div>
             <div className={`${styles.topBarItem} ${styles.loginButton}`}>
                 <LoginButton initialData={initialData} isLogged={isLogged}/>

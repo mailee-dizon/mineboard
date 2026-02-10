@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import styles from "./SearchBar.module.css";
 import { API_URL } from '../../../constants/api';
 
-export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading}) => {
+export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading, setProfileResults}) => {
 
     useEffect(() => {
         if (!searchInput || searchInput.trim() === ""){
@@ -45,7 +45,11 @@ export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading
                 }
             }
 
-
+            const profile_results = await fetch(`${API_URL}/users/${value}`, {signal}); // get users by username (value = search)
+            console.log('profile results: ', profile_results)
+            const profile_data = profile_results.ok ? await profile_results.json() : [];
+            setProfileResults(profile_data);
+            console.log('profile found: ', profile_data)
 
             let results = [];
             if(Array.isArray(category_data)){

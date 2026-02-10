@@ -16,14 +16,25 @@
 }
 
 .resultOption {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
     padding: 5px 10px;
     font-size: 12px;
     background-color: transparent;
     color: black;
     font-family: inherit;
     border: none;
+    align-items: center;
+
 }
 
 .resultContainer:hover {
     background-color: #efefef;
+}
+
+.profileResultPfp {
+    height: 40;
+    width: 40;
+    border-radius: 50%;
 }

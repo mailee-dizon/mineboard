@@ -10,6 +10,7 @@ import { useUI } from "@/context/UIContext";
 
 export default function TopBar({ initialData, isLogged }) {
     const [results, setResults] = useState([]);
+    const [profileResults, setProfileResults] = useState([]);
     const [ searchInput, setSearchInput ] = useState("");
     const [ isLoading, setIsLoading ] = useState(false);
     const { isCollapsed } = useUI();
@@ -26,8 +27,8 @@ export default function TopBar({ initialData, isLogged }) {
             }}
         >
             <div className={`${styles.topBarItem} ${styles.searchBar}`}>
-                <SearchBar setResults={setResults} searchInput={searchInput} setSearchInput={setSearchInput} setIsLoading={setIsLoading}/>
-                <SearchResults results={results} searchInput={searchInput} setSearchInput={setSearchInput} isLoading={isLoading}/>
+                <SearchBar setResults={setResults} searchInput={searchInput} setSearchInput={setSearchInput} setIsLoading={setIsLoading} setProfileResults={setProfileResults}/>
+                <SearchResults results={results} searchInput={searchInput} setSearchInput={setSearchInput} isLoading={isLoading} profileResults={profileResults}/>
             </div>
             <div className={`${styles.topBarItem} ${styles.loginButton}`}>
                 <LoginButton initialData={initialData} isLogged={isLogged}/>

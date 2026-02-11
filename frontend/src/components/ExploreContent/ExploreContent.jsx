@@ -1,9 +1,15 @@
 import React from 'react'
+import { PostFeed } from '../Post/PostFeed'
 
-export default function ExploreContent() {
+export default function ExploreContent({results}) {
   return (
     <div>
-        <h1>Explore content</h1>
+       {results.length > 0 ? (
+            <PostFeed initialPosts={results}/>
+        ) : (
+            <p>No results found.</p>
+        )}
+
     </div>
   )
 }

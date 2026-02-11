@@ -27,7 +27,7 @@ export default function TopBar({ initialData, isLogged }) {
             }}
         >
             <div className={`${styles.topBarItem} ${styles.searchBar}`}>
-                <SearchBar setResults={setResults} searchInput={searchInput} setSearchInput={setSearchInput} setIsLoading={setIsLoading} setProfileResults={setProfileResults}/>
+                <SearchBar setResults={setResults} searchInput={searchInput} setSearchInput={setSearchInput} setIsLoading={setIsLoading} setProfileResults={setProfileResults} results={results}/>
                 <SearchResults results={results} searchInput={searchInput} setSearchInput={setSearchInput} isLoading={isLoading} profileResults={profileResults}/>
             </div>
             <div className={`${styles.topBarItem} ${styles.loginButton}`}>

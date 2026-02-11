@@ -2,9 +2,11 @@ import React, {useEffect} from "react";
 import { Search } from "lucide-react";
 import styles from "./SearchBar.module.css";
 import { API_URL } from '../../../constants/api';
+import { useRouter } from "next/navigation";
+import { searchPosts } from "./SearchApi";
 
 export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading, setProfileResults}) => {
-
+    const router = useRouter();
     useEffect(() => {
         if (!searchInput || searchInput.trim() === ""){
             setResults([]);
@@ -18,49 +20,18 @@ export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading
     const signal = controller.signal;
 
     const fetchData = async (value) => {
-        try {        
-            const title_results = await fetch(`${API_URL}/posts/title/${value}`, {signal}); // getPostsByTitle
-            const title_data = title_results.ok ? await title_results.json() : [];
-            let category_data = [];
-
-            if (value.length > 3){
-                const category_results = await fetch(`${API_URL}/posts/category`, 
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            categories: [value]
-                        }), 
-                        signal
-
-                    }); // getPostsByCategory
-                if (category_results.ok) {
-                    category_data = await category_results.json();
-                }
-                else{
-                    console.log("Failed to get categories", category_results.status)
-                    category_data = [];
-                }
-            }
-
+        try {     
+    
             const profile_results = await fetch(`${API_URL}/users/${value}`, {signal}); // get users by username (value = search)
-            console.log('profile results: ', profile_results)
             const profile_data = profile_results.ok ? await profile_results.json() : [];
             setProfileResults(profile_data);
-            console.log('profile found: ', profile_data)
 
-            let results = [];
-            if(Array.isArray(category_data)){
-                results = [...new Set([...title_data, ...category_data])];
-            }
-            else{
-                results = title_data
-            }
+            const results = await searchPosts(value, signal);
+            console.log('results: ', results)
             setResults(results);
+
         } catch (e){
-            if(e != "AbortError"){
+            if(e.name != "AbortError"){
                 console.log("No results found", e)
             }
         }   finally{
@@ -87,6 +58,12 @@ export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading
             setResults([]);
         }, 300);
     }
+    const handleKeyDown = (event) =>{
+        if (event.key === 'Enter'){
+            router.push(`/explore/${searchInput}`) // route to the query, fetch again in explore
+            setSearchInput("");
+        }
+    }
 
     return(
         <div className={styles["input-wrapper"]}>
@@ -95,6 +72,7 @@ export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading
                 placeholder="Search" 
                 value={searchInput} 
                 onChange={(e) => handleChange(e.target.value)}
+                onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
             />
         </div>       

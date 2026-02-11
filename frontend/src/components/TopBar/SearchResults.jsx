@@ -7,6 +7,7 @@ export const SearchResults = ({ results, searchInput, setSearchInput, isLoading,
     if (!searchInput || searchInput.trim().length === 0) {
         return null;
     }
+
     return (
         <div className={styles["results-list"]}>
         {isLoading ? (
@@ -22,7 +23,7 @@ export const SearchResults = ({ results, searchInput, setSearchInput, isLoading,
                     <button 
                         className={styles.resultOption}
                         onMouseDown={() => {
-                            router.push(`/postview/${result.userid}/${result.postid}`); // routes to the specific post; MUST CHANGE!
+                            router.push(`/explore/${result.title}`); // routes to the specific post; MUST CHANGE!
                             setSearchInput("");
                         }}
                     >

@@ -1,5 +1,26 @@
 import { sql } from "../src/config/db.js";
 
+export async function getUserLike(req, res) {
+    try {
+        const { userId, postId } = req.params;
+
+        if (!userId) {
+            res.status(400).json({message: "Need userId"})
+        }
+
+        const user = await sql`
+            SELECT * from likes
+            WHERE userid = ${userId} AND postid = ${postId}
+        `
+
+        res.status(201).json(user)
+
+    } catch (error) {
+        console.error("Error getting like by userId: ", error)
+        res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
 export async function likePost(req, res) {
     try {
         const { userId, postId } = req.params;

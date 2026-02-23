@@ -5,21 +5,17 @@ import { SignInButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export const LoginButton = ({ initialData, isLogged }) => {
-    const { user } = useUser();
-    const userId = user?.id;
+export const LoginButton = ({ initialData, userId }) => {
     const pfp = initialData?.pfp
     const router = useRouter()
 
-    if (!isLogged){
+    if (!userId){
         return (
             <SignInButton mode="modal">
                 <button className={styles.loginButton}>Login</button>
             </SignInButton>
         )
     }
-    
- 
 
     return(
         <button className={styles.pfpButton} onClick={() => router.push(`/profileview/${userId}`)}>

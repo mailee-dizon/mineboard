@@ -46,3 +46,8 @@
     cursor: pointer;
     color: white;
 }
+
+.buttonsInline {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { SignOutButton, useUser } from '@clerk/nextjs';
 import styles from "./ProfileHeader.module.css"
 import Image from 'next/image.js';
 import { useRouter } from 'next/navigation.js';
@@ -47,8 +47,15 @@ export default function ProfileHeader({profileUser, initialData}) {
                 </div>
             </div>
             {isOwnProfile ? (
-                <div className={styles.editButtonContainer}>
-                    <button onClick={() => router.push(`/profileview/editprofile`)} className={`${styles.editButton} ${minecraftFont.className}`}>Edit Profile</button>
+                <div className={styles.buttonsInline}>
+                    <div className={styles.editButtonContainer}>
+                        <button onClick={() => router.push(`/profileview/editprofile`)} className={`${styles.editButton} ${minecraftFont.className}`}>Edit Profile</button>
+                    </div>
+                    <div className={styles.editButtonContainer}>
+                        <SignOutButton redirectUrl="/home">
+                            <button className={`${styles.editButton} ${minecraftFont.className}`}>Log Out</button>
+                        </SignOutButton>
+                    </div>
                 </div>
             ) : (
                 <div></div>

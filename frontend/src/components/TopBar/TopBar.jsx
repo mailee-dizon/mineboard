@@ -1,20 +1,34 @@
 // src/app/components/TopBar.jsx
 "use client"; // important for interactive components in Next.js
 
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TopBar.module.css";
 import {SearchBar} from "../TopBar/SearchBar"
 import {SearchResults} from "../TopBar/SearchResults"
 import { LoginButton } from "../TopBar/LoginButton";
 import { useUI } from "@/context/UIContext";
+import { API_URL } from "../../../constants/api";
 
-export default function TopBar({ initialData, isLogged }) {
+export default function TopBar({ userId }) {
+    const [profile, setProfile] = useState()
+
     const [results, setResults] = useState([]);
     const [profileResults, setProfileResults] = useState([]);
     const [ searchInput, setSearchInput ] = useState("");
     const [ isLoading, setIsLoading ] = useState(false);
     const { isCollapsed } = useUI();
-    
+
+    useEffect(() => {
+        if (!userId) {
+        setProfile(null);
+        return;
+        }
+
+        fetch(`${API_URL}/users/id/${userId}`)
+        .then(res => res.json())
+        .then(data => setProfile(data[0]))
+    }, [userId]);
+        
     return (
 
     <div className={styles.topBar}>
@@ -31,7 +45,7 @@ export default function TopBar({ initialData, isLogged }) {
                 <SearchResults results={results} searchInput={searchInput} setSearchInput={setSearchInput} isLoading={isLoading} profileResults={profileResults}/>
             </div>
             <div className={`${styles.topBarItem} ${styles.loginButton}`}>
-                <LoginButton initialData={initialData} isLogged={isLogged}/>
+                <LoginButton initialData={profile} userId={userId}/>
             </div>
 
 

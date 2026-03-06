@@ -20,14 +20,14 @@ export const LoginButton = ({ initialData, userId }) => {
     return(
         <button className={styles.pfpButton} onClick={() => router.push(`/profileview/${userId}`)}>
             {pfp ? (
-                <div >
+                <div>
                     <Image
-                    src={pfp}
-                    alt="Profile Picture"
-                    width={40}
-                    height={40}
-                    className={styles.pfp}
-                />
+                        src={pfp}
+                        alt="Profile Picture"
+                        width={40}
+                        height={40}
+                        className={styles.pfp}
+                    />
                 </div>
                 
             ) : (

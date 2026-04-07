@@ -1,5 +1,5 @@
 import express from "express"
-import { createPost, getAllUserPosts, editPost, deletePost, getPostByTitle, getPostByCategory, getAllPost } from "../controllers/postController.js";
+import { createPost, getAllUserPosts, editPost, deletePost, getPostByTitle, getPostByCategory, getAllPost, getPostByDescription } from "../controllers/postController.js";
 
 const router = express.Router();
 
@@ -8,6 +8,7 @@ router.post("/category", getPostByCategory);
 router.get("/", getAllPost);
 router.get("/:userId", getAllUserPosts);
 router.get("/title/:title", getPostByTitle);
+router.get("/description/:description", getPostByDescription);
 router.put("/:postId", editPost);
 router.delete("/:userId/:postId", deletePost);
 

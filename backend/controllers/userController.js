@@ -31,10 +31,9 @@ export async function getByUsername(req, res) {
 
         const user = await sql`
             SELECT * FROM users
-            WHERE username = ${username}
+            WHERE username ILIKE ${'%' + username + '%'}
         `
         res.status(201).json(user)
-        console.log(user)
     } catch (error) {
         console.error("Error getting user by username: ", error);
         res.status(500).json({message: "Couldn't find user by username"})

@@ -1,5 +1,24 @@
 import { sql } from "../src/config/db.js";
 
+export async function getFollow(req, res) {
+    try {
+        const { userId } = req.params;
+
+        if (!userId) {
+            res.status(400).json({message: "Need user id"});
+        }
+
+        const follow = await sql`
+            SELECT * FROM followers
+            WHERE follow_userID = ${userId}
+        `
+
+        res.status(201).json(follow)
+    } catch (error) {
+        
+    }
+}
+
 export async function follow(req, res) {
     try {
         const { followUserId, followerUserId } = req.params;

@@ -101,6 +101,25 @@ export async function getPostByTitle(req, res) {
     }
 }
 
+export async function getPostByDescription(req, res) {
+    try {
+        const { description } = req.params;
+
+        if (!description) {
+            return res.status(400).json({ message: "Need description" })
+        }
+
+        const posts = await sql`
+            SELECT * from post
+            WHERE descript ILIKE ${'%' + description + '%'}
+            ORDER BY createdat
+        `
+    } catch (error) {
+        console.error("Error getting post by description: ", error)
+        res.status(500).json({ message: "Error getting post by description: ", error })
+    }
+}
+
 
 export async function editPost(req, res) {
     try {

@@ -10,7 +10,7 @@ export async function getFollow(req, res) {
 
         const follow = await sql`
             SELECT * FROM followers
-            WHERE follow_userID = ${userId}
+            WHERE userId = ${userId}
         `
 
         res.status(201).json(follow)
@@ -21,15 +21,15 @@ export async function getFollow(req, res) {
 
 export async function follow(req, res) {
     try {
-        const { followUserId, followerUserId } = req.params;
+        const { userId, followerUserId } = req.params;
 
-        if (!followUserId || !followerUserId) {
+        if (!userId || !followerUserId) {
             res.status(400).json({message: "Need follow and follower user id"});
         }
 
         const follow = await sql`
-            INSERT INTO followers(follow_userID, follower_userID)
-            VALUES (${followUserId}, ${followerUserId})
+            INSERT INTO followers(userId, follower_userID)
+            VALUES (${userId}, ${followerUserId})
             RETURNING *
         `
 
@@ -43,15 +43,15 @@ export async function follow(req, res) {
 
 export async function unfollow(req,res) {
     try {
-        const { followUserId, followerUserId } = req.params
+        const { userId, followerUserId } = req.params
 
-        if (!followUserId || !followerUserId) {
+        if (!userId || !followerUserId) {
             res.status(400).json({message: "Need follow and follower id"})
         }
 
         const unfollow = await sql`
             DELETE FROM followers
-            WHERE follow_userID = ${followUserId} AND follower_userID = ${followerUserId}
+            WHERE userId = ${userId} AND follower_userID = ${followerUserId}
             RETURNING *
         `
 

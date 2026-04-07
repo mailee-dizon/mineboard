@@ -3,8 +3,8 @@ import { follow, getFollow, unfollow } from "../controllers/followersController.
 
 const router = express.Router()
 
-router.post("/:followUserId/:followerUserId", follow);
+router.post("/:userId/:followerUserId", follow);
 router.get("/:userId", getFollow);
-router.delete("/:followUserId/:followerUserId", unfollow);
+router.delete("/:userId/:followerUserId", unfollow);
 
 export default router;

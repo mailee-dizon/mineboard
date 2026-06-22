@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import styles from "./SearchResults.module.css";
 import { useRouter } from "next/navigation";
@@ -23,7 +24,7 @@ export const SearchResults = ({ results, searchInput, setSearchInput, isLoading,
                     <button 
                         className={styles.resultOption}
                         onMouseDown={() => {
-                            router.push(`/explore/${result.title}`); // routes to the specific post; MUST CHANGE!
+                            router.push(`/explore/${encodeURIComponent(searchInput)}?selected=${result.postid}`); // routes to the specific post; MUST CHANGE!
                             setSearchInput("");
                         }}
                     >

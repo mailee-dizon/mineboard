@@ -4,36 +4,21 @@ export const likePost = async (postid, { isLiked, setIsLiked, numLikes, setNumLi
   const { isLoaded, user } = userInfo;
   if (!isLoaded) return;
 
-  const delta = isLiked ? -1 : 1; // in order to update like (INTEGER) in post
-  const newLikes = numLikes + delta;
-
-  // optimistic UI
-  setIsLiked(!isLiked);
-  setNumLikes(newLikes);
-
   try {
-    const likeRes = await fetch(
-      `${API_URL}/likes/${user.id}/${postid}`, // post/delete a like within likes
-      { method: isLiked ? "DELETE" : "POST" } // combine logic
-    );
-
-    if (!likeRes.ok) throw new Error(await likeRes.text());
-
-    const postRes = await fetch(`${API_URL}/posts/${postid}`, { // update like (INTEGER) in post
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        ...post, // set all old data again
-        likes: newLikes // update likes!!!
-        }),
-    });
-
-    if (!postRes.ok) throw new Error(await postRes.text());
+    if(isLiked === false){ // user not in backend, but u liked in frontend (new like) ;;;; need get. you are posting/deleting with this, not checking if user is in the likes table
+      const res = await fetch(`${API_URL}/likes/${user.id}/${post.postid}`, {method: 'POST'});
+      if (!res.ok) throw new Error("Failed to like");
+      setIsLiked(true);
+      //setNumLikes(prev=>prev+1)
+    }else{ // user exists in backend, but frontend not reflecting (just unliked)
+      const res = await fetch(`${API_URL}/likes/${user.id}/${post.postid}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error("Failed to unlike");
+      setIsLiked(false);
+      //setNumLikes(prev=>prev-1)
+    }
 
   } catch (err) {
     // rollback UI 
-    setIsLiked(isLiked);
-    setNumLikes(numLikes);
     console.error("Like update failed:", err);
   }
 };

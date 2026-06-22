@@ -1,18 +1,39 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./Post.module.css";
 import { useUser } from '@clerk/nextjs';
 import { ArrowLeft, ArrowRight, Bookmark, Heart } from 'lucide-react'
 import { likePost } from './LikePost'; 
 import { useRouter } from 'next/navigation';
 import { Category } from './Category';
+import { API_URL } from '../../../constants/api';
 
 export const Post = ({ post, userData }) => {
     const { isLoaded, user } = useUser();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [ isLiked, setIsLiked ] = useState(false);
-    const [ numLikes, setNumLikes ] = useState(post.likes);
+    const [ numLikes, setNumLikes ] = useState();
     const router = useRouter();
+    
+    useEffect(() => {
+        if (!isLoaded) return;
+        const fetchLikeStatus = async () => {
+            try {
+                const res = await fetch(`${API_URL}/likes/${user.id}/${post.postid}`); // get if user in likes table
+                const data = await res.json()
+                setIsLiked(data.length > 0); // means it exists, user has liked it
+
+                const postRes = await fetch(`${API_URL}/posts/title/${post.title}`) // get post by title
+                const postData = await postRes.json() // 
+                const thisPost = postData.find(p => p.postid === post.postid); // titles can be duplicated, must find specific post
+
+                setNumLikes(thisPost.likes ?? 0);
+            } catch (e){
+                console.error("Failed to fetch like status: ", e);
+            }
+        };
+        fetchLikeStatus();
+    }, [isLoaded, user?.id, post?.postid]);
 
     const showPrev = () => {
         setCurrentIndex(prev => (prev === 0 ? post.images.length - 1 : prev - 1));
@@ -76,7 +97,7 @@ export const Post = ({ post, userData }) => {
                                 }
                                 fill={isLiked ? "black" : "none"}
                             />
-                            <p>{numLikes}</p>
+                            <p>{numLikes || 0}</p>
                             </div>
                             
                             <div>

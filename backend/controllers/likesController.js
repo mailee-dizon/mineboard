@@ -13,8 +13,12 @@ export async function getUserLike(req, res) {
             WHERE userid = ${userId} AND postid = ${postId}
         `
 
-        res.status(201).json(user)
-
+        if (user.length > 0) {
+            return res.status(200).json(user[0]); // like exists
+        } else {
+            return res.status(404).json({ message: "Like not found" }); // no like
+        }
+        
     } catch (error) {
         console.error("Error getting like by userId: ", error)
         res.status(500).json({message: "Internal Server Error"})

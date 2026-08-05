@@ -8,6 +8,7 @@ import Image from "next/image";
 export const LoginButton = ({ initialData, userId }) => {
     const pfp = initialData?.pfp
     const router = useRouter()
+    console.log(pfp);
 
     if (!userId){
         return (

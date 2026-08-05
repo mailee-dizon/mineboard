@@ -40,11 +40,13 @@ export const SearchBar = ({setResults, searchInput, setSearchInput, setIsLoading
             }
         }
     };
-    const timeoutId = setTimeout(() => fetchData(searchInput), 300);   
-    return () => {
-        clearTimeout(timeoutId);
-        controller.abort();
-    };
+
+
+        const timeoutId = setTimeout(() => fetchData(searchInput), 300);   
+        return () => {
+            clearTimeout(timeoutId);
+            controller.abort();
+        };
 
     }, [searchInput]);
 

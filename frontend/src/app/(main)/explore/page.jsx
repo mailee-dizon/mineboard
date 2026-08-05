@@ -7,7 +7,6 @@ export default async function ExplorePage() {
 
   return (
     <div>
-      <h1>Explore Page</h1>
       <ExploreContent results={data}/>
     </div>
   );

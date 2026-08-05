@@ -28,6 +28,8 @@ export default function TopBar({ userId }) {
         .then(res => res.json())
         .then(data => setProfile(data[0]))
     }, [userId]);
+
+    console.log(profile)
         
     return (
 

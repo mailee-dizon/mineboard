@@ -25,21 +25,28 @@ export async function getPostByCategory(req, res) {
     try {
         const { categories } = req.params;
 
-        if (!categories || !Array.isArray(categories) || categories.length === 0) {
-            return res.status(400).json({message: "Need categories to get posts"})
+        if (!categories) {
+            return res.status(400).json({
+                message: "Need categories to get posts"
+            });
         }
+
+        const categoryArray = categories.split(",");
 
         const posts = await sql`
             SELECT *
             FROM post
-            WHERE categories && ${categories}::category[]
+            WHERE categories && ${categoryArray}::category[]
             ORDER BY createdat DESC
         `;
 
-        res.status(201).json(posts)
+        res.status(200).json(posts);
     } catch (error) {
-        console.error("Error getting post by categories: ", error);
-        res.status(500).json({message: "Error getting post by categories"})
+        console.error("Error getting post by categories:", error);
+
+        res.status(500).json({
+            message: "Error getting post by categories"
+        });
     }
 }
 

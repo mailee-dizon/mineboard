@@ -4,7 +4,7 @@ import { createPost, getAllUserPosts, editPost, deletePost, getPostByTitle, getP
 const router = express.Router();
 
 router.post("/", createPost);
-router.post("/category/:categories", getPostByCategory);
+router.get("/category/:categories", getPostByCategory);
 router.get("/", getAllPost);
 router.get("/:userId", getAllUserPosts);
 router.get("/title/:title", getPostByTitle);

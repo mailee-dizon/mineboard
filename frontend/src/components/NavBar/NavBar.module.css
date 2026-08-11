@@ -1,9 +1,11 @@
 /* Left Navigation Bar */
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
+  width: var(--navbar-width);
   padding: 1rem;
   border-right: 1px solid #e5e5e5;
   backdrop-filter: blur(10px);
@@ -12,8 +14,10 @@
   flex-direction: column;
   gap: 1rem;
   z-index: 50;
+  transition: width 0.3s;
+  box-sizing: border-box;
 }
-
+ 
 /* Menu items */
 .navItem {
   display: flex;
@@ -23,24 +27,26 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  white-space: nowrap;
 }
-
+ 
 .navItem:hover {
   background-color: #f3f3f3;
 }
-
+ 
 /* Icon style (optional) */
 .navItem svg {
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
 }
-
+ 
 /* Text label */
 .navItem span {
   font-size: 1rem;
   font-weight: 500;
 }
-
+ 
 .collapseToggle {
   position: absolute;
   display: flex;
@@ -58,14 +64,13 @@
   z-index: 100;          /* above content */
   transition: background 0.2s;
 }
-
-.collapseToggle svg { 
-    padding: 1;
-    width: 16px;
-    height: 16px;
-
+ 
+.collapseToggle svg {
+  padding: 1;
+  width: 16px;
+  height: 16px;
 }
-
+ 
 .collapseToggle:hover {
   background: #f3f3f3;
 }

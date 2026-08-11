@@ -1,18 +1,17 @@
 .postGrid {
     display: flex;
     width: auto;
-    margin: auto;
 }
 
-.postGridColumn{
+.postGridColumn {
     background-clip: padding-box;
-    padding-left: 17px;
+    padding: 0 8.5px; /* symmetric — same gap, but balanced on both edges */
 }
 
 .gridWrapper {
   width: 100%;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   overflow: hidden;
   margin: 0 auto;
 }

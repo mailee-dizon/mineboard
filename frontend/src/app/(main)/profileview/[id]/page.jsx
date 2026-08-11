@@ -12,11 +12,12 @@ export default async function ProfilePage({ params }) {
     const postRes = await fetch(`${API_URL}/posts/${id}`);
     const userPosts = await postRes.json();
 
+    
+
     return (
         <div>
             <ProfileHeader profileUser={id} initialData={data[0]}/>
             <ProfileContent initialPosts={userPosts}/>
-            
         </div>
     )
 }

@@ -1,13 +1,8 @@
-import ExploreContent from '@/components/ExploreContent/ExploreContent';
-import { API_URL } from '../../../../constants/api';
+import ExploreContentDefault from "@/components/ExploreContent/ExploreContentDefault";
 
-export default async function ExplorePage() {
-    const res = await fetch(`${API_URL}/posts/`); 
-    const data = await res.json();
-
+export default function ExplorePage() {
   return (
-    <div>
-      <ExploreContent results={data}/>
-    </div>
-  );
+    <ExploreContentDefault/>
+  )
+  
 }

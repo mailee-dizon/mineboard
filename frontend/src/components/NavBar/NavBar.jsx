@@ -13,13 +13,19 @@ import {
 import styles from "./NavBar.module.css";
 import { useUI } from "@/context/UIContext";
 import { useRouter } from 'next/navigation';
+import { NAVBAR_WIDTH_EXPANDED, NAVBAR_WIDTH_COLLAPSED } from "@/constants/layout";
 
 export default function NavBar() {
   const { isCollapsed, setIsCollapsed } = useUI();
   const router = useRouter();
 
+  const navWidth = isCollapsed ? NAVBAR_WIDTH_COLLAPSED : NAVBAR_WIDTH_EXPANDED;
+
   return (
-    <nav className={styles.navbar}>
+    <nav
+      className={styles.navbar}
+      style={{ "--navbar-width": `${navWidth}px` }}
+    >
       <button
         className={styles.collapseToggle}
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -27,43 +33,42 @@ export default function NavBar() {
         {isCollapsed ? <ArrowRightFromLine /> : <ArrowLeftFromLine />}
       </button>
 
-      <div 
-        className={styles.navItem} 
+      <div
+        className={styles.navItem}
         onClick={() => {
           router.push(`/`);
-        }
-        }
+        }}
       >
-        <Image src="/minecraftLogo.webp" alt="Logo" width={24} height={24}/>
+        <Image src="/minecraftLogo.webp" alt="Logo" width={24} height={24} />
         {!isCollapsed && <span>Mineboard</span>}
       </div>
 
-      <div 
-        className={styles.navItem} 
+      <div
+        className={styles.navItem}
         onClick={() => {
-          router.push(`/home`)
-          }
-        }
+          router.push(`/home`);
+        }}
       >
-        <Home/>
+        <Home />
         {!isCollapsed && <span>Home</span>}
       </div>
 
-      <div 
-        className={styles.navItem} 
-        onClick={() => 
+      <div
+        className={styles.navItem}
+        onClick={() =>
           router.push(`/explore`)
         }
       >
-        <Compass/>
+        <Compass />
         {!isCollapsed && <span>Explore</span>}
       </div>
 
-      <div 
-        className={styles.navItem} 
-        onClick={() => 
-          router.push(`/create`)    
-      }>
+      <div
+        className={styles.navItem}
+        onClick={() =>
+          router.push(`/create`)
+        }
+      >
         <SquarePlus />
         {!isCollapsed && <span>Create</span>}
       </div>

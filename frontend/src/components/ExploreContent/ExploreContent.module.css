@@ -1,0 +1,26 @@
+.categories {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: repeat(2, 200px);
+    gap: 15px;
+    justify-content: center;
+}
+
+.border {
+    border-radius: 20px;
+    background-color: #008000;
+    height: 200px;
+    width: 300px;
+    position: relative;
+}
+
+.category {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+}
+
+.title {
+    margin-bottom: 20px;
+    margin-left: 350px;
+}

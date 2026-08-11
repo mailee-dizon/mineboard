@@ -20,13 +20,15 @@ export const SearchResults = ({ results, searchInput, setSearchInput, isLoading,
                 <div 
                     key={result.postid} 
                     className={styles.resultContainer}
+                    onMouseDown={() => {
+                        console.log("suggestion clicked", result.postid); // temp debug
+                        router.push(`/explore/${encodeURIComponent(searchInput)}?selected=${result.postid}`); // routes to the specific post; MUST CHANGE!
+                        setSearchInput("");
+                    }}
                 >
                     <button 
+                        type="button"
                         className={styles.resultOption}
-                        onMouseDown={() => {
-                            router.push(`/explore/${encodeURIComponent(searchInput)}?selected=${result.postid}`); // routes to the specific post; MUST CHANGE!
-                            setSearchInput("");
-                        }}
                     >
                         {result.title}
                     </button>
@@ -39,6 +41,7 @@ export const SearchResults = ({ results, searchInput, setSearchInput, isLoading,
                     className={styles.resultContainer}
                 >
                     <button 
+                        type="button"
                         className={styles.resultOption}
                         onMouseDown={() => {
                             router.push(`/profileview/${profileResult.userid}`)

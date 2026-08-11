@@ -29,7 +29,10 @@ export async function searchPosts( query, signal ){
 
     let results = [];
     if(Array.isArray(category_data)){
-        results = [...new Set([...title_data, ...category_data])];
+        const merged = [...title_data, ...category_data];
+        results = Array.from(
+            new Map(merged.map(post => [post.postid, post])).values()
+        );
     }
     else{
         results = title_data

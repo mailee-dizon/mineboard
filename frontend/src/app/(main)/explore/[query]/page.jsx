@@ -1,6 +1,5 @@
 import ExploreContent from '@/components/ExploreContent/ExploreContent';
 import { searchPosts } from '@/components/TopBar/SearchApi';
-import { SearchResults } from '@/components/TopBar/SearchResults';
 
 export default async function ExplorePage( {params, searchParams} ) {
     const {query} = await params; 
@@ -21,7 +20,6 @@ export default async function ExplorePage( {params, searchParams} ) {
 
   return (
     <div>
-      <h1>Explore Page</h1>
       <p>Search results for "{searchResultPH}"</p>
       <ExploreContent results={orderedResults}/>
     </div>

@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useEffect} from "react";
 import { Search } from "lucide-react";
 import styles from "./SearchBar.module.css";

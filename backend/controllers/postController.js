@@ -23,7 +23,7 @@ export async function createPost(req, res) {
 
 export async function getPostByCategory(req, res) {
     try {
-        const { categories } = req.body;
+        const { categories } = req.params;
 
         if (!categories || !Array.isArray(categories) || categories.length === 0) {
             return res.status(400).json({message: "Need categories to get posts"})

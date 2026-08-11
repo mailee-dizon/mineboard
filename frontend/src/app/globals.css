@@ -48,3 +48,7 @@ a {
   font-smooth: never;
 }
 
+button {
+    font-family: inherit;
+    color: inherit;
+}

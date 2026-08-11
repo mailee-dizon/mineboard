@@ -1,27 +1,60 @@
 import ExploreContent from '@/components/ExploreContent/ExploreContent';
 import { searchPosts } from '@/components/TopBar/SearchApi';
+import { API_URL } from '../../../../../constants/api';
 
-export default async function ExplorePage( {params, searchParams} ) {
-    const {query} = await params; 
-    const {selected} = await searchParams; // selected result 
+export default async function ExplorePage({ params, searchParams }) {
+    const { query } = await params;
+    const { selected, category } = await searchParams;
 
     const controller = new AbortController();
     const signal = controller.signal;
-    const results = await searchPosts(query, signal)
 
-    let orderedResults = results;
+    let results = [];
     let searchResultPH = decodeURIComponent(query);
-    if (selected) { // if they selected a specific result
-      const selectedPost = results.find(r => r.postid == selected);
-      const others = results.filter(r => r.postid != selected);
-      orderedResults = selectedPost ? [selectedPost, ...others] : results;
-      searchResultPH = selectedPost ? selectedPost.title : searchResultPH;
+
+    // Category selected
+    if (category) {
+        const response = await fetch(
+            `${API_URL}/posts/category/${category}`
+        );
+
+        results = await response.json();
+        searchResultPH = category.charAt(0).toUpperCase() + category.slice(1);
     }
 
-  return (
-    <div>
-      <p>Search results for "{searchResultPH}"</p>
-      <ExploreContent results={orderedResults}/>
-    </div>
-  );
+    // Normal search
+    else {
+        results = await searchPosts(query, signal);
+
+        if (selected) {
+            const selectedPost = results.find(
+                r => r.postid == selected
+            );
+
+            const others = results.filter(
+                r => r.postid != selected
+            );
+
+            results = selectedPost
+                ? [selectedPost, ...others]
+                : results;
+
+            searchResultPH = selectedPost
+                ? selectedPost.title
+                : searchResultPH;
+        }
+    }
+
+    return (
+        <div>
+            <p>
+                {category
+                    ? `Posts in "${searchResultPH}"`
+                    : `Search results for "${searchResultPH}"`
+                }
+            </p>
+
+            <ExploreContent results={results} />
+        </div>
+    );
 }

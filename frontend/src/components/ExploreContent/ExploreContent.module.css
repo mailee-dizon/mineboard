@@ -8,19 +8,44 @@
 
 .border {
     border-radius: 20px;
-    background-color: #008000;
     height: 200px;
     width: 300px;
     position: relative;
+    overflow: hidden;
+}
+
+.border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.border:hover::after {
+    background: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
 }
 
 .category {
     position: absolute;
-    left: 15px;
-    bottom: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 2;
+    font-size: 20px;
+    margin: 0;
+    cursor: pointer;
 }
 
 .title {
     margin-bottom: 20px;
-    margin-left: 350px;
+    text-align: left;
+    padding-left: 300px
+}
+
+.backgroundImage {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

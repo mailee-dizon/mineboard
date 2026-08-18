@@ -1,4 +1,4 @@
-import MCLoadingSpinner from "@/components/MCLoadingSpinner";
+import MCLoadingSpinner from "@/components/LoadingSpinner/MCLoadingSpinner";
 import styles from "@/app/page.module.css";
 
 export default function Loading() {

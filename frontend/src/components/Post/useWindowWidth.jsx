@@ -8,12 +8,13 @@ export default function useContainerWidth() {
     const el = ref.current;
     if (!el) return;
 
-    const update = () => setWidth(el.clientWidth);
+    const observer = new ResizeObserver((entries) => {
+      setWidth(entries[0].contentRect.width);
+    });
 
-    update();
-    window.addEventListener("resize", update);
+    observer.observe(el);
 
-    return () => window.removeEventListener("resize", update);
+    return () => observer.disconnect();
   }, []);
 
   return [ref, width];

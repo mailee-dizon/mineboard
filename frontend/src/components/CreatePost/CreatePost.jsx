@@ -15,7 +15,8 @@ const options = [
     {value: "town", label: "Town"},
     {value: "castle", label: "Castle"},
     {value: "decoration", label: "Decoration"},
-    ];
+    {value: "redstone", label: "Redstone"}
+];
 
 export const CreatePost = () => {
     const { isSignedIn, user } = useUser();
@@ -75,6 +76,12 @@ export const CreatePost = () => {
         }
 
     };
+
+    console.log(selectedCategories)
+
+// EDIT SIGN IN TO POST LATER
+// INCLUDE A SIGN IN BUTTON
+
     if (!isSignedIn){
         return (
             <div className={styles.notSignedIn}>
@@ -84,36 +91,43 @@ export const CreatePost = () => {
     }
 
     return (
-    <div className={styles.mainCreateBox} >
-        <div className={styles.requiredBox}>
-            <SelectFiles images={images} setImages={setImages}/>
-            {noImgs&& <p className={styles.selectAtLeastLabel}>* Select at least one image</p>}
+    <div>
+        <div className={styles.headerRow}>
+            <h1 className={styles.heading}>Create Post</h1>
         </div>
-        <div className={styles.subCreateBox}>
-            <input 
-                className={styles.inputBox}
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-            {noTitle && <p className={styles.selectAtLeastLabel}>* Title required </p>}
-            <textarea 
-                    className={`${styles.inputBox} ${styles.descriptionBox}`}
-                    placeholder="Description"
-                    rows={6}
-                    value={descript}
-                    onChange={(e) => setDescript(e.target.value)}
-            />
-            <Select // TO DO: finish implementing categories
-                isMulti='true'
-                options={options}
-                value={selectedCategories}
-                onChange={setSelectedCategories}
-                className={styles.inputBox}
-                
-            />
-            <div className={styles.postSubmitBox}>
-                <button onClick={handleSumbit} className={styles.postSubmitButton}>Post</button>
+
+        <div className={styles.mainCreateBox}>
+            <div className={styles.requiredBox}>
+                <SelectFiles images={images} setImages={setImages}/>
+                {noImgs && <p className={styles.selectAtLeastLabel}>* Select at least one image</p>}
+            </div>
+
+            <div className={styles.subCreateBox}>
+                <input 
+                    className={styles.inputBox}
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+                {noTitle && <p className={styles.selectAtLeastLabel}>* Title required </p>}
+                <textarea 
+                        className={`${styles.inputBox} ${styles.descriptionBox}`}
+                        placeholder="Description"
+                        rows={6}
+                        value={descript}
+                        onChange={(e) => setDescript(e.target.value)}
+                />
+                <Select // TO DO: finish implementing categories
+                    isMulti='true'
+                    options={options}
+                    value={selectedCategories}
+                    onChange={setSelectedCategories}
+                    className={styles.inputBox}
+                    
+                />
+                <div className={styles.postSubmitBox}>
+                    <button onClick={handleSumbit} className={styles.postSubmitButton}>Post</button>
+                </div>
             </div>
         </div>
     </div>
